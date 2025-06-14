@@ -1,9 +1,10 @@
 // scripts/seed.ts
 // import { config } from 'dotenv';
 // config({ path: '.env' }); // Load environment variables
-import { categories, products, certifications, productsToCertifications } from '../db/schema'; // Adjust path
+import { categories, products, certifications, productsToCertifications, users } from '../db/schema'; // Adjust path
 import { v4 as uuidv4 } from 'uuid'; // For manually generating UUIDs if needed for relationships
 import db from '../db/drizzle';
+import bcrypt from 'bcryptjs';
 
 
 async function seed() {
@@ -17,9 +18,24 @@ async function seed() {
     await db.delete(products);
     await db.delete(categories);
     await db.delete(certifications);
+    await db.delete(users); // Clear users if needed
     console.log('✅ Existing data cleared.');
 
-    // --- 2. Insert Categories ---
+    // --- 2. Insert Admin User ---
+    console.log('Inserting admin user...');
+    const adminPassword = 'bbmd123456';
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(adminPassword, saltRounds);
+
+    const adminUser = {
+      id: uuidv4(),
+      username: 'adminmd',
+      password: hashedPassword,
+    };
+    await db.insert(users).values(adminUser);
+
+    console.log('✅ Admin user inserted.');
+    // --- 3. Insert Categories ---
     console.log('Inserting categories...');
     const newCategories = [
       { id: uuidv4(), name: 'Electronics' },
@@ -30,18 +46,18 @@ async function seed() {
     await db.insert(categories).values(newCategories);
     console.log('✅ Categories inserted.');
 
-    // --- 3. Insert Certifications ---
+    // --- 4. Insert Certifications ---
     console.log('Inserting certifications...');
     const newCertifications = [
-      { id: uuidv4(), name: 'CE Certified', image: 'https://example.com/ce-cert.png' },
-      { id: uuidv4(), name: 'ISO 9001', image: 'https://example.com/iso9001-cert.png' },
-      { id: uuidv4(), name: 'Organic', image: 'https://example.com/organic-cert.png' },
-      { id: uuidv4(), name: 'Fair Trade', image: 'https://example.com/fairtrade-cert.png' },
+      { id: uuidv4(), name: 'CE Certified', image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png' },
+      { id: uuidv4(), name: 'ISO 9001', image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png' },
+      { id: uuidv4(), name: 'Organic', image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png' },
+      { id: uuidv4(), name: 'Fair Trade', image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png' },
     ];
     await db.insert(certifications).values(newCertifications);
     console.log('✅ Certifications inserted.');
 
-    // --- 4. Insert Products ---
+    // --- 5. Insert Products ---
     console.log('Inserting products...');
     const electronicsCategoryId = newCategories.find(c => c.name === 'Electronics')?.id;
     const booksCategoryId = newCategories.find(c => c.name === 'Books')?.id;
@@ -88,7 +104,7 @@ async function seed() {
     await db.insert(products).values(newProducts);
     console.log('✅ Products inserted.');
 
-    // --- 5. Insert ProductsToCertifications (Join Table) ---
+    // --- 6. Insert ProductsToCertifications (Join Table) ---
     console.log('Linking products to certifications...');
     const smartphoneXId = newProducts.find(p => p.name === 'Smartphone X')?.id;
     const tShirtId = newProducts.find(p => p.name === 'Cotton T-Shirt')?.id;
