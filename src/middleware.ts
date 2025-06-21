@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Paths that require authentication
-  const protectedAdminPaths = ['/admin']; // Add other protected API routes as needed
+  const protectedAdminPaths = ['/admin', "/api/certifications", "/api/categories", "/api/products"];
 
   const isProtectedAdminPath = protectedAdminPaths.some(path => pathname.startsWith(path));
 

@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { count, eq } from 'drizzle-orm'; // Used for `where` clause if needed
+import { count } from 'drizzle-orm'; // Used for `where` clause if needed
 import db from '../../../../db/drizzle'; // Adjust path as per your project structure
-import { certifications } from '../../../../db/schema'; // Adjust path as per your project structure
-import cloudinary from '../../../../cloudinary.config';
-import { extractPublicIdFromUrl } from '../../../../lib/upload';
+import { products } from '../../../../db/schema'; // Adjust path as per your project structure
+
 
 // --- GET /api/certifications ---
 // Purpose: Fetch all certifications with pagination and sorting.
@@ -57,7 +56,7 @@ export async function GET(req: NextRequest) {
     // 1. Get total count for X-Total-Count header (always needed for the header)
     const totalCountResult = await db
       .select({ count: count() })
-      .from(certifications);
+      .from(products);
     const totalCount = totalCountResult[0].count;
 
     console.log('Total Count:', totalCount);
@@ -71,12 +70,23 @@ export async function GET(req: NextRequest) {
       findManyOptions.offset = offset;
     }
 
-    const fetchedcertifications = await db.query.certifications.findMany(findManyOptions); // Removed orderBy
-
-    console.log('Returned certifications Count (actual data length):', fetchedcertifications.length);
+    const fetchedProducts = await db.query.products.findMany({
+      limit: limit,
+      offset: offset,
+      // where: conditions.length > 0 ? sql.and(...conditions) : undefined, // Apply filters for data
+      with: {
+        // categories: true, // Fetch the related category
+        certifications: {
+          with: {
+            certification: true, // Fetch the related certification details
+          }
+        }
+      },
+    });
+    console.log('Returned certifications Count (actual data length):', fetchedProducts.length);
 
     // 3. Set the X-Total-Count header and Content-Range
-    const response = NextResponse.json(fetchedcertifications, { status: 200 });
+    const response = NextResponse.json(fetchedProducts, { status: 200 });
     response.headers.set('X-Total-Count', totalCount.toString());
 
     // Content-Range should reflect the actual returned range if paginated, or all if not.
@@ -91,49 +101,3 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: 'Failed to retrieve certifications.' }, { status: 500 });
   }
 }
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-
-
-    // Validate incoming data
-    // Expect 'name' for the certification and 'image' which will be the Cloudinary public_id
-    if (!body.name || !body.image) {
-      return NextResponse.json({ message: 'Missing required fields: name and image.' }, { status: 400 });
-    }
-
-    const existingCertification = await db.query.certifications.findFirst({
-      where: eq(certifications.name, body.name)
-    })
-
-    if (existingCertification) {
-      const publicId = extractPublicIdFromUrl(body.image);
-
-      if (publicId) {
-        await cloudinary.uploader.destroy(publicId);
-      }
-
-      return NextResponse.json(
-        { message: `Certification with name ${body.name} already exists` },
-        { status: 409 }
-      )
-    }
-
-    // Insert the new certification into the database
-    // Drizzle will generate UUID for 'id' as per your schema defaultRandom
-    const newCertification = await db.insert(certifications).values({
-      name: body.name,
-      image: body.image // This is the Cloudinary public_id received from dataProvider
-    }).returning(); // Use .returning() to get the newly inserted record
-
-    // React Admin expects the created record back in the response
-    return NextResponse.json(newCertification[0], { status: 201 });
-
-  }
-  catch (error: any) {
-    console.error('API Error: Failed to create certification.', error);
-    return NextResponse.json({ message: 'Failed to create certification.' }, { status: 500 });
-  }
-}
-

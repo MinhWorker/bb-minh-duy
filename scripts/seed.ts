@@ -72,7 +72,7 @@ async function seed() {
         id: uuidv4(),
         name: 'Smartphone X',
         price: "15000000.00", // VND 15,000,000
-        image: 'https://example.com/smartphone.png',
+        image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png',
         description: 'Latest model smartphone with advanced features.',
         categoryId: electronicsCategoryId,
       },
@@ -80,7 +80,7 @@ async function seed() {
         id: uuidv4(),
         name: 'The Great Novel',
         price: "250000.00", // VND 250,000
-        image: 'https://example.com/novel.png',
+        image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png',
         description: 'An epic story of adventure and discovery.',
         categoryId: booksCategoryId,
       },
@@ -88,7 +88,7 @@ async function seed() {
         id: uuidv4(),
         name: 'Cotton T-Shirt',
         price: "120000.00", // VND 120,000
-        image: 'https://example.com/tshirt.png',
+        image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png',
         description: '100% organic cotton t-shirt, comfortable and stylish.',
         categoryId: clothingCategoryId,
       },
@@ -96,7 +96,7 @@ async function seed() {
         id: uuidv4(),
         name: 'Smart TV 55"',
         price: "10000000.00", // VND 10,000,000
-        image: 'https://example.com/smarttv.png',
+        image: 'https://png.pngtree.com/png-clipart/20231206/original/pngtree-demo-red-flat-icon-isolated-demo-icon-photo-png-image_13786501.png',
         description: 'Ultra HD Smart TV for immersive viewing.',
         categoryId: electronicsCategoryId,
       },
