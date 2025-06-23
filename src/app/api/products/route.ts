@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { count, eq } from 'drizzle-orm'; // Used for `where` clause if needed
+import { count, desc, eq } from 'drizzle-orm'; // Used for `where` clause if needed
 import db from '../../../../db/drizzle'; // Adjust path as per your project structure
 import { products, productsToCertifications } from '../../../../db/schema'; // Adjust path as per your project structure
 import { extractPublicIdFromUrl } from '../../../../lib/upload';
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     const fetchedProducts = await db.query.products.findMany({
       limit: limit,
       offset: offset,
-      // where: conditions.length > 0 ? sql.and(...conditions) : undefined, // Apply filters for data
+      orderBy: [desc(products.createdAt)],
       with: {
         // categories: true, // Fetch the related category
         certifications: {

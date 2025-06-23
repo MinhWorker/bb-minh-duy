@@ -37,7 +37,7 @@ export const ProductsList = () => {
         <ReferenceField source="categoryId" reference="categories" link="show"> {/* Link to category detail if you make a category show page */}
           <TextField source="name" label="Category" /> {/* Display category name */}
         </ReferenceField>
-        <CertificationsField label="Certificates" />
+        <CertificationsField label="Certifications" />
         <DateField source="createdAt" />
       </Datagrid>
     </List>

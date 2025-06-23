@@ -11,18 +11,21 @@ import { CertificationsEdit } from "./certifications/edit";
 import { CertificationsCreate } from "./certifications/create";
 import { ProductsCreate } from "./products/create";
 import { ProductsEdit } from "./products/edit";
+import { AdminLayout } from "../../../components/AdminLayout";
+import { Shapes, ShieldCheck, Store } from "lucide-react";
 
 const dataProvider = simpleRestProvider("/api");
 
 const App = () => {
   return (
-    <Admin dataProvider={dataProvider}>
+    <Admin dataProvider={dataProvider} layout={AdminLayout}>
       <Resource
         name="products"
         list={ProductsList}
         create={ProductsCreate}
         edit={ProductsEdit}
         recordRepresentation="title"
+        icon={Store}
       />
 
       <Resource
@@ -31,6 +34,7 @@ const App = () => {
         create={CategoriesCreate}
         edit={CategoriesEdit}
         recordRepresentation="title"
+        icon={Shapes}
       />
 
       <Resource
@@ -39,6 +43,7 @@ const App = () => {
         create={CertificationsCreate}
         edit={CertificationsEdit}
         recordRepresentation="title"
+        icon={ShieldCheck}
       />
     </Admin>
   )
