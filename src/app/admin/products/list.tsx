@@ -1,5 +1,5 @@
 // import Link from "next/link";
-import { Datagrid, DateField, ImageField, List, ReferenceField, TextField, useRecordContext } from "react-admin";
+import { Datagrid, DateField, ImageField, List, NumberField, ReferenceField, TextField, useRecordContext } from "react-admin";
 
 export const ProductsList = () => {
   const CertificationsField = () => {
@@ -32,7 +32,7 @@ export const ProductsList = () => {
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="name" />
-        <TextField source="price" />
+        <NumberField source="price" options={{ style: "currency", currency: "VND" }} />
         <ImageField source="image" title="name" />
         <ReferenceField source="categoryId" reference="categories" link="show"> {/* Link to category detail if you make a category show page */}
           <TextField source="name" label="Category" /> {/* Display category name */}

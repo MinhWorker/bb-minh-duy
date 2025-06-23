@@ -1,7 +1,9 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { count } from 'drizzle-orm'; // Used for `where` clause if needed
+import { count, eq } from 'drizzle-orm'; // Used for `where` clause if needed
 import db from '../../../../db/drizzle'; // Adjust path as per your project structure
-import { products } from '../../../../db/schema'; // Adjust path as per your project structure
+import { products, productsToCertifications } from '../../../../db/schema'; // Adjust path as per your project structure
+import { extractPublicIdFromUrl } from '../../../../lib/upload';
+import cloudinary from '../../../../cloudinary.config';
 
 
 // --- GET /api/certifications ---
@@ -99,5 +101,49 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('API Error: Failed to retrieve certifications.', error);
     return NextResponse.json({ message: 'Failed to retrieve certifications.' }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const {
+      name,
+      price,
+      image,
+      description,
+      categoryId,
+      certificationIds = [],
+    } = body;
+
+    if (!name || !price || !image || !categoryId) {
+      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+    }
+
+    const [newProduct] = await db
+      .insert(products)
+      .values({
+        name,
+        price,
+        image,
+        description,
+        categoryId,
+      })
+      .returning();
+
+    // Insert certifications into join table
+    if (certificationIds.length > 0) {
+      await db.insert(productsToCertifications).values(
+        certificationIds.map((id: string) => ({
+          productId: newProduct.id,
+          certificationId: id,
+        }))
+      );
+    }
+
+    return NextResponse.json(newProduct, { status: 201 });
+  } catch (err) {
+    console.error("API Error: Failed to create product.", err);
+    return NextResponse.json({ message: "Failed to create product." }, { status: 500 });
   }
 }

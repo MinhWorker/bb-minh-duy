@@ -9,6 +9,8 @@ import { CertificationsList } from "./certifications/list";
 import { ProductsList } from "./products/list";
 import { CertificationsEdit } from "./certifications/edit";
 import { CertificationsCreate } from "./certifications/create";
+import { ProductsCreate } from "./products/create";
+import { ProductsEdit } from "./products/edit";
 
 const dataProvider = simpleRestProvider("/api");
 
@@ -18,6 +20,8 @@ const App = () => {
       <Resource
         name="products"
         list={ProductsList}
+        create={ProductsCreate}
+        edit={ProductsEdit}
         recordRepresentation="title"
       />
 

@@ -8,7 +8,11 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Paths that require authentication
-  const protectedAdminPaths = ['/admin', "/api/certifications", "/api/categories", "/api/products"];
+  const protectedAdminPaths = [
+    '/admin',
+    "/api/certifications",
+    "/api/categories",
+    "/api/products"];
 
   const isProtectedAdminPath = protectedAdminPaths.some(path => pathname.startsWith(path));
 
@@ -49,6 +53,8 @@ export const config = {
   matcher: [
     '/admin/:path*', // Protects all paths under /admin
     '/api/categories/:path*', // Protects all paths under /api/categories
-    '/api/auth/signout', // If you add a signout endpoint
+    '/api/certifications/:path*', // Protects all paths under /api/categories
+    '/api/products/:path*', // Protects all paths under /api/categories
+    '/api/auth/signout'
   ],
 };

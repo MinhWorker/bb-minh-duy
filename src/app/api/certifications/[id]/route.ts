@@ -45,7 +45,7 @@ export async function PUT(
     const { name, image } = body;
 
     if (!name || !image) {
-      return NextResponse.json({ message: "Missing 'name'" }, { status: 400 });
+      return NextResponse.json({ message: "Missing 'name' or 'image" }, { status: 400 });
     }
 
     // Fetch the existing certification
@@ -55,6 +55,20 @@ export async function PUT(
 
     if (!record) {
       return NextResponse.json({ message: "Not found" }, { status: 404 });
+    }
+
+    const existingCertifcation = await db.query.certifications.findFirst({
+      where: eq(certifications.name, name)
+    });
+
+    if (existingCertifcation && existingCertifcation.id !== certificationId) {
+      const newPublicId = extractPublicIdFromUrl(image);
+
+      if (newPublicId) {
+        await cloudinary.uploader.destroy(newPublicId);
+      }
+
+      return NextResponse.json({ message: `Certification with name '${name}' already exists.` }, { status: 409 })
     }
 
     const current = record;
@@ -68,14 +82,6 @@ export async function PUT(
         await cloudinary.uploader.destroy(oldPublicId);
       }
       newImage = image;
-    }
-
-    const existingCertifcation = await db.query.certifications.findFirst({
-      where: eq(certifications.name, name)
-    });
-
-    if (existingCertifcation) {
-      return NextResponse.json({ message: `Certification with name ${name} already exists.` }, { status: 409 })
     }
 
     // Update record
