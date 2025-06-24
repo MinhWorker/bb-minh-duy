@@ -1,4 +1,4 @@
-import { AutocompleteArrayInput, Edit, ImageField, ImageInput, NumberInput, ReferenceArrayInput, ReferenceInput, required, SelectInput, SimpleForm, TextInput, useNotify, useRecordContext, useRedirect } from "react-admin"
+import { AutocompleteArrayInput, Edit, ImageField, ImageInput, NumberInput, ReferenceArrayInput, ReferenceInput, required, SelectInput, SimpleForm, TextInput, useNotify, useRedirect } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
 
 {/* eslint-disable  @typescript-eslint/no-explicit-any */ }

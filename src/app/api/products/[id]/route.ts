@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "../../../../../db/drizzle";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { certifications, products, productsToCertifications } from "../../../../../db/schema";
 import { extractPublicIdFromUrl } from "../../../../../lib/upload";
 import cloudinary from "../../../../../cloudinary.config";
@@ -90,15 +90,12 @@ export async function PUT(req: NextRequest) {
     }
 
     const current = record;
-    let newImage = current.image;
 
     if (image && image !== current.image) {
       const oldPublicId = extractPublicIdFromUrl(current.image);
       if (oldPublicId) {
         await cloudinary.uploader.destroy(oldPublicId);
       }
-
-      newImage = image;
     }
 
     const updated = await db

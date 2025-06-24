@@ -5,6 +5,7 @@ import { AppBar, TitlePortal } from 'react-admin';
 import { Typography, Box } from '@mui/material';
 import { SignOutButton } from './SignOutButton';
 
+{/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const AdminAppBar = (props: any) => {
   return (
     <AppBar {...props}>

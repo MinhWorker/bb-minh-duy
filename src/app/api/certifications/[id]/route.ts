@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { certifications, certificationsRelation } from "../../../../../db/schema";
+import { certifications, } from "../../../../../db/schema";
 import db from "../../../../../db/drizzle";
 import { eq } from "drizzle-orm";
 import cloudinary from "../../../../../cloudinary.config";

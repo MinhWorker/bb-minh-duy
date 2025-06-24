@@ -91,7 +91,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: 'Failed to retrieve certifications.' }, { status: 500 });
   }
 }
-
+{/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

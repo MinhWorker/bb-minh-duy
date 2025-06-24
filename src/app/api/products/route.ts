@@ -1,9 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { count, desc, eq } from 'drizzle-orm'; // Used for `where` clause if needed
+import { count, desc } from 'drizzle-orm'; // Used for `where` clause if needed
 import db from '../../../../db/drizzle'; // Adjust path as per your project structure
 import { products, productsToCertifications } from '../../../../db/schema'; // Adjust path as per your project structure
-import { extractPublicIdFromUrl } from '../../../../lib/upload';
-import cloudinary from '../../../../cloudinary.config';
 
 
 // --- GET /api/certifications ---

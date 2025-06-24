@@ -1,6 +1,7 @@
 import { Edit, ImageField, ImageInput, SimpleForm, TextInput, useNotify, useRedirect } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
 
+{/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const CertificationsEdit = () => {
 
   const notify = useNotify();
