@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const { username, password } = await req.json();
 
     if (!username || !password) {
-      return NextResponse.json({ message: 'Username and password are required' }, { status: 400 });
+      return NextResponse.json({ message: 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.' }, { status: 400 });
     }
 
     const user = await db.query.users.findFirst({
@@ -18,12 +18,12 @@ export async function POST(req: NextRequest) {
     });
 
     if (!user || !await comparePassword(password, user.password)) {
-      return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+      return NextResponse.json({ message: 'Tài khoản đăng nhập chưa chính xác.' }, { status: 401 });
     }
 
     const sessionToken = await createSessionToken(user.id);
 
-    const response = NextResponse.json({ message: 'Sign-in successful' }, { status: 200 });
+    const response = NextResponse.json({ message: 'Đăng nhập thành công' }, { status: 200 });
 
     // Set HttpOnly, Secure (for HTTPS), SameSite=Lax cookie
     response.cookies.set('session', sessionToken, {
@@ -37,6 +37,6 @@ export async function POST(req: NextRequest) {
     return response;
   } catch (error) {
     console.error('Sign-in error:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ message: 'Hệ thống gặp vấn đề, vui lòng thử lại sau.' }, { status: 500 });
   }
 }
