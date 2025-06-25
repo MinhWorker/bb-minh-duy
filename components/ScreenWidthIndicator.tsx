@@ -29,7 +29,7 @@ const ScreenSizeDetector: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 p-4 text-center text-white bg-gray-800 rounded-xl shadow-lg z-50">
+    <div className="fixed top-4 right-4 p-4 text-center text-white bg-gray-800 rounded-xl shadow-lg z-50">
       <p className="text-sm font-bold">Width: {width}px</p>
       <p className="text-xs mt-1">Breakpoint: <span className="font-mono">{breakpoint}</span></p>
     </div>
