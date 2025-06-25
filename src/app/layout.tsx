@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Gwendolyn } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,6 +11,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const gwendolyn = Gwendolyn({
+  variable: "--font-gwendolyn",
+  weight: "400",
+  subsets: ["vietnamese"],
+})
 
 export const metadata: Metadata = {
   title: "BB Minh Duy",
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${gwendolyn.variable} antialiased`}
       >
         {children}
       </body>
