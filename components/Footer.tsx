@@ -4,12 +4,12 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-foreground rounded-t-[50px] pt-16 pb-6">
+    <footer className="bg-primary-foreground rounded-t-[50px] pt-16 pb-6" id="contact">
       <div className="flex flex-wrap md:justify-center gap-10 lg:gap-20 px-10 lg:px-0">
         <div className="w-full lg:w-auto flex justify-center">
           <div className="flex flex-col items-center">
             <div className="w-[120px] relative aspect-square">
-              <Image src="/images/logo.png" fill objectFit="cover" alt="BB Minh Duy logo" />
+              <Image src="/images/logo.png" fill alt="BB Minh Duy logo" className="object-cover" sizes="(max-width: 1920px) 120px" />
             </div>
             <p className="font-gwendolyn font-semibold text-2xl text-white mt-3 tracking-widest">BB Minh Duy</p>
           </div>

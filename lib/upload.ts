@@ -5,7 +5,6 @@ const uploadToCloudinary = async (file: File): Promise<{ public_id: string; secu
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("folder", `bb_minh_duy/certificates`)
 
   const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`, {
     method: "POST",

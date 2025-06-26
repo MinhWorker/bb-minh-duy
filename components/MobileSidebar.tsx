@@ -23,7 +23,7 @@ const MobileSidebar = () => {
   return (
     <>
       <div
-        className={`fixed sm:hidden inset-0 bg-black/50 bg-opacity-50 z-40 transition-opacity duration-300 ${isShown ? 'opacity-100 visible' : 'opacity-0 invisible'
+        className={`z-100 fixed sm:hidden inset-0 bg-black/50 bg-opacity-50 transition-opacity duration-300 ${isShown ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
         onClick={hide}
       >
@@ -33,9 +33,9 @@ const MobileSidebar = () => {
         >
           <div className="flex items-center justify-between">
             <div className="w-10 relative aspect-square">
-              <Image src="/images/logo.png" alt="BB Minh Duy logo" fill objectFit="cover" />
+              <Image src="/images/logo.png" alt="BB Minh Duy logo" fill className="object-cover" sizes="(max-width: 1920px) calc(var(--spacing)*10)" />
             </div>
-            <p className="font-gwendolyn text-primary text-xl font-semibold">BB Minh Duy</p>
+            <p className="font-gwendolyn text-primary-foreground text-xl font-semibold">BB Minh Duy</p>
             <div onClick={hide} className="w-10">
               <X />
             </div>

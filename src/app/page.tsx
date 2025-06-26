@@ -3,7 +3,8 @@ import Footer from "../../components/Footer";
 import GoalsSection from "../../components/GoalsSection";
 import Header from "../../components/Header";
 import MobileSidebar from "../../components/MobileSidebar";
-import ScreenSizeDetector from "../../components/ScreenWidthIndicator";
+import ProductsSection from "../../components/ProductsSection";
+// import ScreenSizeDetector from "../../components/ScreenWidthIndicator";
 
 export default function Home() {
 
@@ -15,15 +16,13 @@ export default function Home() {
 
       <AboutUsSection />
 
-      <div className="h-[200px] bg-green-100">
-        Product section
-      </div>
+      <ProductsSection />
 
       <GoalsSection />
 
       <Footer />
 
-      <ScreenSizeDetector />
+      {/* <ScreenSizeDetector /> */}
     </main>
   );
 }

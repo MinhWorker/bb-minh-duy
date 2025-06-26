@@ -4,7 +4,7 @@ const GoalsSection = () => {
   return (
     <section className="my-12 min-h-screen scroll-mt-28" id="goals">
 
-      <h1 className="text-primary text-center font-semibold text-[40px] mb-10">Mục Tiêu</h1>
+      <h1 className="text-primary-foreground text-center font-semibold text-[40px] mb-4 text-shadow-md text-shadow-accent/25">MỤC TIÊU</h1>
 
       <div className="overflow-hidden relative">
         <div
@@ -15,7 +15,7 @@ const GoalsSection = () => {
         <div className="relative z-10 p-10 text-white">
           <div className="flex flex-col md:flex-row items-center justify-around">
             <div className="relative rounded-2xl shadow-2xl overflow-hidden w-[250px] h-[150px] md:w-[350px] md:h-[250px] md:mr-10 mb-5 md:mb-0">
-              <Image src="/images/bbmd3.jpeg" alt="goal1" fill objectFit="cover" />
+              <Image src="/images/bbmd3.jpeg" alt="goal1" fill className="object-cover" sizes="(max-width: 768px) 250px, (max-width: 1920px) 350px" />
             </div>
 
             <p className="md:max-w-[600px] md:w-1/2 text-sm md:text-[16px] leading-7">
@@ -39,7 +39,7 @@ const GoalsSection = () => {
             </p>
 
             <div className="relative rounded-2xl shadow-2xl overflow-hidden w-[250px] h-[150px] md:w-[350px] md:h-[250px] md:ml-10 mb-5 md:mb-0 order-1 md:order-2">
-              <Image src="/images/bbmd4.jpeg" alt="goal1" fill objectFit="cover" />
+              <Image src="/images/bbmd4.jpeg" alt="goal1" fill className="object-cover" sizes="(max-width: 768px) 250px, (max-width: 1920px) 350px" />
             </div>
           </div>
         </div>
