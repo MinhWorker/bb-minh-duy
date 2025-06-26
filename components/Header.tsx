@@ -4,7 +4,7 @@ import MobileSidebarToggle from "./MobileSideBarToggle";
 
 const Header = () => {
   return (
-    <header className="px-12 xl:px-[100px] py-5 sm:py-2 flex items-center justify-between sm:block lg:flex lg:items-center lg:justify-between bg-white fixed top-0 w-full shadow-lg">
+    <header className="px-12 xl:px-[100px] py-5 sm:py-2 flex items-center justify-between sm:block lg:flex lg:items-center lg:justify-between bg-white fixed top-0 w-full shadow-lg z-100">
       <MobileSidebarToggle />
 
       <div className="items-center sm:gap-3 justify-center mb-4 lg:mb-0 lg:justify-between hidden sm:flex">

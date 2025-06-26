@@ -1,7 +1,7 @@
 const HeaderNavItem = ({ name, id }: { name: string, id: string }) => {
   return (
-    <li className="transition-colors hover:text-primary">
-      <a href={`#${id}`}>{name}</a>
+    <li className="transition-colors hover:text-primary focus-visible:outline">
+      <a href={`#${id}`} aria-label={`Go to ${name} section`}>{name}</a>
     </li>
   )
 }
