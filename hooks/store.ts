@@ -23,6 +23,7 @@ type PaginationState = {
   totalPages: () => number;
   isLastPage: () => boolean;
 };
+
 export const usePaginationStore = create<PaginationState>((set, get) => ({
   page: 1,
   limit: 7,

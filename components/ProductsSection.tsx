@@ -7,6 +7,8 @@ import { Flower2, LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import ProductFilter from "./products/ProductFilter";
+import { MultiValue } from "react-select";
 
 type ProductsProps = {
   id: string,
@@ -39,6 +41,12 @@ const ProductsSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductDetailModalProps | null>(null);
+  const [chosenCategories, setChosenCategories] = useState<MultiValue<
+    {
+      value: string,
+      label: string
+    }
+  >>([]);
 
   const formatToVnd = (price: number) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -48,17 +56,42 @@ const ProductsSection = () => {
   }
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProducts = async (options?: string[]) => {
       setIsLoading(true);
-      const res = await fetch(`/api/users/products?page=${page}`);
+      const res = await fetch(`/api/users/products?page=${page}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          categoryIds: options
+        }),
+      });
       const data = await res.json();
       setProducts(data.products);
       setTotal(data.total);
       setIsLoading(false);
     };
 
-    fetchProducts();
+    const formattedCategories = chosenCategories.map((category) => category.value);
+
+    fetchProducts(formattedCategories);
   }, [page]);
+
+  const handleFilter = async (
+    options?: string[]) => {
+    setIsLoading(true);
+    const res = await fetch(`/api/users/products?page=${page}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        categoryIds: options
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    setProducts(data.products);
+    setTotal(data.total);
+    setIsLoading(false);
+  }
 
   const handleOpen = async (id: string) => {
     setIsProductLoading(true);
@@ -94,6 +127,10 @@ const ProductsSection = () => {
           className="object-contain"
           sizes="(max-width: 1902px) 400px"
         />
+      </div>
+
+      <div>
+        <ProductFilter handleFilter={handleFilter} chosenCategories={chosenCategories} setChosenCategories={setChosenCategories} />
       </div>
 
       <div className="flex justify-center">
@@ -162,7 +199,7 @@ const ProductsSection = () => {
                                   <Tooltip>
                                     <TooltipTrigger className="block">
                                       <div className="w-[70px] aspect-square relative">
-                                        <Image src={cert.certification.image} alt={cert.certification.name} fill className="object-contain" />
+                                        <Image src={cert.certification.image} alt={cert.certification.name} fill className="object-contain" sizes="(max-width: 1920px) 70px" />
                                       </div>
                                     </TooltipTrigger>
                                     <TooltipContent className="text-md">{cert.certification.name}</TooltipContent>
