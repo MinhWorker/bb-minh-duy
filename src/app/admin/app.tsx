@@ -13,12 +13,16 @@ import { ProductsCreate } from "./products/create";
 import { ProductsEdit } from "./products/edit";
 import { AdminLayout } from "../../../components/AdminLayout";
 import { Shapes, ShieldCheck, Store } from "lucide-react";
+import { i18nProvider } from "@/i18nProvider";
 
 const dataProvider = simpleRestProvider("/api");
 
 const App = () => {
   return (
-    <Admin dataProvider={dataProvider} layout={AdminLayout}>
+    <Admin
+      dataProvider={dataProvider}
+      i18nProvider={i18nProvider}
+      layout={AdminLayout}>
       <Resource
         name="products"
         list={ProductsList}

@@ -2,23 +2,27 @@
 
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslate } from 'react-admin';
 
 export function SignOutButton() {
   const router = useRouter();
+  const translate = useTranslate();
 
   const handleSignOut = async () => {
     await fetch('/api/signout', {
       method: 'POST',
     });
 
-    // Optional: reload session-less state or redirect
     router.push('/signin');
   };
 
   return (
-    <button onClick={handleSignOut} className='text-white font-bold flex gap-2'>
+    <button
+      onClick={handleSignOut}
+      className="text-white flex gap-2 items-center"
+    >
       <LogOut />
-      Sign Out
+      {translate('ra.auth.logout')}
     </button>
   );
 }
