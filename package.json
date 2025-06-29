@@ -8,15 +8,34 @@
     "start": "next start",
     "lint": "next lint",
     "db:studio": "npx drizzle-kit studio",
-    "db:push": "npx drizzle-kit push"
+    "db:push": "npx drizzle-kit push",
+    "db:generate": "npx drizzle-kit generate",
+    "db:seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.7",
+    "@types/formidable": "^3.4.5",
+    "bcryptjs": "^3.0.2",
+    "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.6.1",
+    "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
+    "jose": "^6.0.11",
+    "lucide-react": "^0.522.0",
     "next": "15.3.3",
+    "ra-data-simple-rest": "^5.8.3",
+    "ra-i18n-polyglot": "^5.9.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-admin": "^5.8.3",
+    "react-dom": "^19.0.0",
+    "react-select": "^5.10.1",
+    "tailwind-merge": "^3.3.1",
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -24,10 +43,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "tailwindcss": "^4",
+    "tsx": "^4.19.4",
+    "tw-animate-css": "^1.3.4",
     "typescript": "^5"
   }
 }
