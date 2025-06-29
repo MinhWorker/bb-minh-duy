@@ -1,9 +1,13 @@
-import { Edit, required, SimpleForm, TextInput } from "react-admin";
+import { Edit, required, SimpleForm, TextInput, useTranslate } from "react-admin";
 
-export const CategoriesEdit = () => (
-  <Edit>
-    <SimpleForm>
-      <TextInput source="name" validate={[required()]} label="Name" />
-    </SimpleForm>
-  </Edit>
-)
+export const CategoriesEdit = () => {
+  const translate = useTranslate();
+
+  return (
+    <Edit>
+      <SimpleForm>
+        <TextInput source="name" validate={[required()]} label={translate("resources.categories.name")} />
+      </SimpleForm>
+    </Edit>
+  )
+}

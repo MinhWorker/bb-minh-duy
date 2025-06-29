@@ -1,9 +1,9 @@
-import { Edit, ImageField, ImageInput, SimpleForm, TextInput, useNotify, useRedirect } from "react-admin"
+import { Edit, ImageField, ImageInput, SimpleForm, TextInput, useNotify, useRedirect, useTranslate } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
 
 {/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const CertificationsEdit = () => {
-
+  const translate = useTranslate();
   const notify = useNotify();
   const redirect = useRedirect();
 
@@ -28,10 +28,10 @@ export const CertificationsEdit = () => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || "Update failed");
+        throw new Error(errorData.message || "Cập nhật thất bại");
       }
 
-      notify("Certification updated");
+      notify("Cập nhật thành công");
       redirect("/certifications")
     } catch (error: any) {
       notify(error.message, { type: "error" });
@@ -40,13 +40,13 @@ export const CertificationsEdit = () => {
 
   return (
     <Edit>
-      <ImageField source="image" title="Certification image" />
+      <ImageField source="image" />
       <SimpleForm onSubmit={handleSubmit}>
-        <TextInput source="name" label="Certification Name" fullWidth />
+        <TextInput source="name" label={translate("resources.certifications.name")} fullWidth />
 
         <ImageInput
           source="newImage"
-          label="Upload New Image"
+          label={translate("resources.certifications.newImage")}
           accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }} // Accept any image type
           maxSize={10 * 1024 * 1024}
         >

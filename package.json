@@ -14,6 +14,9 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.7",
     "@types/formidable": "^3.4.5",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
@@ -25,11 +28,14 @@
     "lucide-react": "^0.522.0",
     "next": "15.3.3",
     "ra-data-simple-rest": "^5.8.3",
+    "ra-i18n-polyglot": "^5.9.0",
     "react": "^19.0.0",
     "react-admin": "^5.8.3",
     "react-dom": "^19.0.0",
+    "react-select": "^5.10.1",
     "tailwind-merge": "^3.3.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

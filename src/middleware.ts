@@ -25,14 +25,14 @@ export async function middleware(req: NextRequest) {
         return NextResponse.redirect(signinUrl);
       }
       // For API routes, just return unauthorized
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: 'Hết phiên đăng nhập, vui lòng tải lại trang hoặc bấm đăng xuất' }, { status: 401 });
     }
 
     const session = await verifySessionToken(token);
 
     if (!session) {
       // If token is invalid, clear cookie and redirect/unauthorize
-      const response = NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      const response = NextResponse.json({ message: 'Hết phiên đăng nhập, vui lòng tải lại trang hoặc bấm đăng xuất' }, { status: 401 });
       response.cookies.delete('session'); // Clear invalid session cookie
       if (pathname.startsWith('/admin')) {
         const signinUrl = new URL('/signin', req.url);

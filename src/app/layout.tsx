@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Gwendolyn } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,9 +12,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const gwendolyn = Gwendolyn({
+  variable: "--font-gwendolyn",
+  weight: "400",
+  subsets: ["vietnamese"],
+})
+
 export const metadata: Metadata = {
   title: "BB Minh Duy",
-  description: "Trang web hợp tác xã giới thiệu sản phẩm địa phương",
+  description: "Khám phá các sản phẩm nông nghiệp địa phương chất lượng cao từ hợp tác xã BB Minh Duy. Hỗ trợ nông dân và tìm kiếm trực tuyến dễ dàng.",
 };
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${gwendolyn.variable} antialiased`}
       >
         {children}
       </body>

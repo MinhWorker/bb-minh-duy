@@ -1,9 +1,12 @@
-import { Create, required, SimpleForm, TextInput } from "react-admin";
+import { Create, required, SimpleForm, TextInput, useTranslate } from "react-admin";
 
-export const CategoriesCreate = () => (
-  <Create>
-    <SimpleForm>
-      <TextInput source="name" validate={[required()]} label="name" />
-    </SimpleForm>
-  </Create>
-)
+export const CategoriesCreate = () => {
+  const translate = useTranslate();
+  return (
+    <Create>
+      <SimpleForm>
+        <TextInput source="name" validate={[required()]} label={translate("resources.categories.name")} />
+      </SimpleForm>
+    </Create>
+  )
+}
