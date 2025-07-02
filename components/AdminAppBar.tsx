@@ -14,7 +14,6 @@ export const AdminAppBar = (props: any) => {
       }}
     >
       <TitlePortal />
-      <Typography variant="h6">BB Minh Duy</Typography>
       <Typography flex="1" variant="h6" color="inherit" id="react-admin-title" />
       <Box mr={2}>
         <SignOutButton />

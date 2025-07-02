@@ -1,5 +1,6 @@
 import { Edit, ImageField, ImageInput, SimpleForm, TextInput, useNotify, useRedirect, useTranslate } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
+import BackButton from "../../../../components/BackButton";
 
 {/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const CertificationsEdit = () => {
@@ -52,7 +53,7 @@ export const CertificationsEdit = () => {
         >
           <ImageField source="src" title="New image" />
         </ImageInput>
-
+        <BackButton url="certifications" />
       </SimpleForm>
     </Edit>)
 }

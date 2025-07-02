@@ -143,6 +143,7 @@ const messages: TranslationMessages = {
       name: 'Product',
       price: 'Price',
       description: 'Description',
+      unit: "Unit",
       image: 'Image',
       category: 'Category',
       certifications: 'Certifications',

@@ -1,5 +1,5 @@
-import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar, primaryKey, numeric } from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
+import { pgTable, text, timestamp, uuid, varchar, primaryKey, numeric, check } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid('id').defaultRandom().notNull().primaryKey(),
@@ -20,9 +20,10 @@ export const categoriesRelation = relations(categories, ({ many }) => ({
 export const products = pgTable("products", {
   id: uuid('id').defaultRandom().notNull().primaryKey(),
   name: varchar("name", { length: 256 }).notNull(),
-  price: numeric("price", { precision: 10, scale: 2 }).notNull(),
+  price: numeric("price").notNull(),
   image: text("image").notNull(), // Store cloudinary public image id
   description: text("description"),
+  unit: text("unit").notNull(),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
     .notNull()
     .defaultNow(),
