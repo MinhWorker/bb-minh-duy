@@ -1,6 +1,7 @@
 import Image from "next/image";
 import HeaderNavItem from "./HeaderNavItem";
 import MobileSidebarToggle from "./MobileSideBarToggle";
+import { Store } from "lucide-react";
 
 const Header = () => {
   return (
@@ -18,10 +19,11 @@ const Header = () => {
         <Image src="/images/logo.png" fill className="object-cover" alt="BB Minh Duy logo" sizes="(max-width: 1920px) 80px" />
       </div>
 
-      <div className="block sm:hidden">
-        <ul className="list-disc-none">
-          <HeaderNavItem name="Sản phẩm" id="products" />
-        </ul>
+      <div className="block sm:hidden transition-colors text-white hover:text-white shadow-sm bg-primary hover:bg-primary-foreground rounded-sm px-4 py-2 shadow-black/50">
+        <a href="#products" aria-label={`Go to product section`} className="flex items-center gap-2">
+          {/* Sản phẩm */}
+          <Store />
+        </a>
       </div>
 
       <nav className="hidden sm:block">

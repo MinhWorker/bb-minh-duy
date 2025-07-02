@@ -142,11 +142,12 @@ const messages: TranslationMessages = {
       name: "Sản phẩm",
       price: "Giá",
       description: "Mô tả",
+      unit: "Đơn vị",
       image: "Hình ảnh",
       category: "Phân loại",
       certifications: "Chứng chỉ",
       createdAt: "Ngày tạo",
-      fileSize: "Hỗ trợ hình ảnh đến 10mb",
+      fileSize: "Hỗ trợ hình ảnh đến 10MB",
       newImage: "Hình ảnh mới"
     },
     categories: {
@@ -157,7 +158,7 @@ const messages: TranslationMessages = {
       id: "Mã",
       name: "Chứng chỉ",
       image: "Hình ảnh",
-      fileSize: "Hỗ trợ hình ảnh đến 10mb",
+      fileSize: "Hỗ trợ hình ảnh đến 10MB",
       newImage: "Hình ảnh mới"
     },
   },

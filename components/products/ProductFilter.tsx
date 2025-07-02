@@ -2,6 +2,7 @@
 import { Filter } from "lucide-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Select, { MultiValue } from "react-select";
+import { usePaginationStore } from "../../hooks/store";
 
 type OptionProps = {
   value: string,
@@ -16,6 +17,7 @@ type ProductFilterProps = {
 
 const ProductFilter = ({ handleFilter, chosenCategories, setChosenCategories }: ProductFilterProps) => {
   const [categories, setCategories] = useState<OptionProps[]>([]);
+  const { setPage } = usePaginationStore();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -103,7 +105,10 @@ const ProductFilter = ({ handleFilter, chosenCategories, setChosenCategories }: 
       />
       <div
         className="bg-primary p-2 rounded-md shadow-black/40 shadow-md flex items-center justify-center hover:bg-primary-foreground transform transition-all active:scale-95"
-        onClick={handleFilterFetch}
+        onClick={() => {
+          setPage(1); {/* Reset to first page */ }
+          handleFilterFetch();
+        }}
       >
         <Filter color="#ffffff" />
         <span className="text-white md:hidden">Lọc</span>

@@ -22,6 +22,7 @@ type ProductDetailModalProps = {
   name: string,
   description: string,
   price: number,
+  unit: string,
   image: string,
   categories: {
     name: string
@@ -134,7 +135,7 @@ const ProductsSection = () => {
       </div>
 
       <div className="flex justify-center">
-        {!isLoading ? (
+        {!isLoading && products ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
             {products.map((p: ProductsProps) => (
               <Dialog key={p.id}>
@@ -179,7 +180,7 @@ const ProductsSection = () => {
                         <div className="sm:pl-6 pt-8 sm:col-start-2">
                           <h2 className="text-lg sm:text-xl mb-4">{product.name}</h2>
 
-                          <div className="text-lg mb-4">Giá: <span className="font-bold">{formatToVnd(product.price)}</span></div>
+                          <div className="text-lg mb-4">Giá: <span className="font-bold">{formatToVnd(product.price)} / {product.unit}</span></div>
 
                           <div className="text-lg mb-4">Phân loại: <span className="text-nowrap text-sm text-white bg-primary shadow-lg rounded-md py-2 px-3">{product.categories.name}</span></div>
 

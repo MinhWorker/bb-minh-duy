@@ -1,6 +1,6 @@
 import Image from "next/image";
 import FooterNavItem from "./FooterNavItem";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -31,10 +31,17 @@ const Footer = () => {
             <Mail />
             <span>htxbonbonminhduy@gmail.com </span>
           </p>
-          <p className="flex items-center gap-5 mt-3">
-            <Phone />
+          <div className="flex items-center gap-5 mt-3">
+            <div className="relative w-[25px] aspect-square">
+              <Image
+                src="/images/zalo-icon.svg"
+                fill
+                alt="zalo"
+                className="object-contain"
+              />
+            </div>
             <span>(+84) 948 055 359</span>
-          </p>
+          </div>
           <p className="flex items-center gap-5 mt-3">
             <MapPin className="shrink-0" />
             <span className="max-w-[300px]">Ấp Đông Hưng, Xã Tân Hưng Đông, Cái Nước, Cà Mau</span>

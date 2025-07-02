@@ -30,15 +30,16 @@ export const ProductsList = () => {
   return (
     <List>
       <Datagrid rowClick="edit">
-        <TextField source="id" label={translate("resources.products.id")} />
-        <TextField source="name" label={translate("resources.products.name")} />
-        <NumberField source="price" options={{ style: "currency", currency: "VND" }} label={translate("resources.products.price")} />
-        <ImageField source="image" title="name" label={translate("resources.products.image")} />
-        <ReferenceField source="categoryId" reference="categories" link="show" label={translate("resources.products.category")} >
-          <TextField source="name" label="Category" /> {/* Display category name */}
+        <TextField source="id" label={translate("resources.products.id")} sortable={false} />
+        <TextField source="name" label={translate("resources.products.name")} sortable={false} />
+        <NumberField source="price" options={{ style: "currency", currency: "VND" }} label={translate("resources.products.price")} sortable={false} />
+        <TextField source="unit" label={translate("resources.products.unit")} sortable={false} />
+        <ImageField source="image" title="name" label={translate("resources.products.image")} sortable={false} />
+        <ReferenceField source="categoryId" reference="categories" link="show" label={translate("resources.products.category")} sortable={false} >
+          <TextField source="name" label="Category" sortable={false} /> {/* Display category name */}
         </ReferenceField>
         <CertificationsField label={translate("resources.products.certifications")} />
-        <DateField source="createdAt" label={translate("resources.products.createdAt")} />
+        <DateField source="createdAt" label={translate("resources.products.createdAt")} sortable={false} />
       </Datagrid>
     </List>
   )
