@@ -19,7 +19,7 @@ const GoalsSection = () => {
             </div>
 
             <p className="md:max-w-[600px] md:w-1/2 text-sm md:text-[16px] leading-7">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              "Hợp tác xã Bồn Bồn Minh Duy đặt mục tiêu tăng sản lượng, đa dạng hóa sản phẩm từ cây bồn bồn và duy trì chất lượng ổn định. Chúng tôi hướng đến nâng cấp sản phẩm đạt chuẩn OCOP 4 sao, đồng thời chú trọng đào tạo, cải thiện tay nghề cho lao động địa phương. Mỗi bước phát triển là sự đầu tư bền vững để sản phẩm ngày càng chuyên nghiệp và có chỗ đứng vững chắc trên thị trường."
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@ const GoalsSection = () => {
         <div className="relative z-10 p-10 text-white">
           <div className="flex flex-col md:flex-row items-center justify-around">
             <p className="md:max-w-[600px] md:w-1/2 text-sm md:text-[16px] leading-7 order-2 md:order-1">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              "Chúng tôi mong muốn mở rộng liên kết với nhiều hộ trồng bồn bồn trong và ngoài tỉnh, từ đó xây dựng vùng nguyên liệu ổn định và cùng nhau phát triển. Hợp tác xã đã và đang đưa sản phẩm ra khắp ba miền đất nước, góp phần lan tỏa giá trị đặc sản địa phương, tạo sinh kế lâu dài và nâng cao thu nhập cho nông dân trong chuỗi sản xuất bền vững."
             </p>
 
             <div className="relative rounded-2xl shadow-2xl overflow-hidden w-[250px] h-[150px] md:w-[350px] md:h-[250px] md:ml-10 mb-5 md:mb-0 order-1 md:order-2">

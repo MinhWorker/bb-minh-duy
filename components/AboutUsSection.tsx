@@ -14,7 +14,7 @@ const AboutUsSection = () => {
               VỀ CHÚNG TÔI
             </h1>
             <p className="text-sm md:text-lg text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              "Chúng tôi là Hợp tác xã Bồn Bồn Minh Duy, nơi gắn bó với cây bồn bồn ngay tại vùng đất Tân Hưng Đông – Cái Nước, Cà Mau. Từ cây dân dã, chúng tôi làm nên đặc sản dưa bồn bồn OCOP, tạo việc làm cho phụ nữ địa phương và lan tỏa giá trị nông sản sạch. Mỗi sản phẩm là tâm huyết, là mong muốn phát triển bền vững cùng cộng đồng."
             </p>
           </div>
         </div>

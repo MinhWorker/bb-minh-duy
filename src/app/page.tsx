@@ -4,7 +4,6 @@ import GoalsSection from "../../components/GoalsSection";
 import Header from "../../components/Header";
 import MobileSidebar from "../../components/MobileSidebar";
 import ProductsSection from "../../components/ProductsSection";
-// import ScreenSizeDetector from "../../components/ScreenWidthIndicator";
 
 export default function Home() {
 
@@ -22,7 +21,6 @@ export default function Home() {
 
       <Footer />
 
-      {/* <ScreenSizeDetector /> */}
     </main>
   );
 }
