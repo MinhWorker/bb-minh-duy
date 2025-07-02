@@ -5,8 +5,8 @@ export const CategoriesList = () => {
   return (
     <List>
       <Datagrid rowClick="edit">
-        <TextField source="id" label={translate("resources.categories.id")} />
-        <TextField source="name" label={translate("resources.categories.name")} />
+        <TextField source="id" label={translate("resources.categories.id")} sortable={false} />
+        <TextField source="name" label={translate("resources.categories.name")} sortable={false} />
       </Datagrid>
     </List >
   )

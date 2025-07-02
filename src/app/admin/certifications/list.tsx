@@ -6,9 +6,9 @@ export const CertificationsList = () => {
     // The <List> component automatically handles pagination if the data provider returns X-Total-Count
     <List>
       <Datagrid rowClick="edit">
-        <TextField source="id" label={translate("resources.certifications.id")} />
-        <TextField source="name" label={translate("resources.certifications.name")} />
-        <ImageField source="image" label={translate("resources.certifications.image")} />
+        <TextField source="id" label={translate("resources.certifications.id")} sortable={false} />
+        <TextField source="name" label={translate("resources.certifications.name")} sortable={false} />
+        <ImageField source="image" label={translate("resources.certifications.image")} sortable={false} />
       </Datagrid>
     </List>
   )

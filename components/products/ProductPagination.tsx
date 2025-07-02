@@ -24,7 +24,7 @@ const NextPageButton = () => {
 }
 
 const ProductPagination = () => {
-  const { page, setPage, nextPage, prevPage, totalPages } = usePaginationStore();
+  const { page, setPage, nextPage, prevPage, totalPages, isLastPage } = usePaginationStore();
 
   const pages = Array.from({ length: totalPages() }, (_, i) => i + 1);
 
@@ -34,9 +34,13 @@ const ProductPagination = () => {
         {/* Previous */}
         <PaginationItem>
           <PaginationPrevious
-            className="bg-primary rounded-lg hover:bg-primary-foreground"
+            className={`${page === 1 ? "bg-accent" : "bg-primary hover:bg-primary-foreground"}`}
             href="#products"
-            onClick={() => {
+            onClick={(e) => {
+              if (page === 1) {
+                e.preventDefault();
+                return;
+              }
               prevPage();
             }}
           />
@@ -61,9 +65,13 @@ const ProductPagination = () => {
         {/* Next */}
         <PaginationItem>
           <PaginationNext
-            className="bg-primary rounded-lg hover:bg-primary-foreground"
+            className={`${isLastPage() ? "bg-accent" : "bg-primary hover:bg-primary-foreground"}`}
             href="#products"
-            onClick={() => {
+            onClick={(e) => {
+              if (isLastPage()) {
+                e.preventDefault();
+                return;
+              }
               nextPage();
             }}
           />

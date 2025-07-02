@@ -1,5 +1,6 @@
 import { Create, ImageField, ImageInput, required, SimpleForm, TextInput, useNotify, useRedirect, useTranslate } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
+import BackButton from "../../../../components/BackButton";
 
 {/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const CertificationsCreate = () => {
@@ -57,6 +58,7 @@ export const CertificationsCreate = () => {
           <ImageField source="src" title="Uploaded Image" />
         </ImageInput>
         <p className="text-red-500 text-sm">*{translate("resources.certifications.fileSize")}</p>
+        <BackButton url="certifications" />
       </SimpleForm>
     </Create >
   )

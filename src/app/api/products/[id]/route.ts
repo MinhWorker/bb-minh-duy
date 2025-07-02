@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, description, price, image, categoryId, certificationIds } = body;
+    const { name, description, price, image, categoryId, certificationIds, unit } = body;
 
     if (!name
       || !description
@@ -63,6 +63,7 @@ export async function PUT(req: NextRequest) {
       || !image
       || !categoryId
       || !certificationIds
+      || !unit
     ) {
       return NextResponse.json({ message: 'All field is required' }, { status: 400 });
     }
@@ -106,6 +107,7 @@ export async function PUT(req: NextRequest) {
         price,
         image,
         categoryId,
+        unit
       })
       .where(eq(products.id, productId))
       .returning();

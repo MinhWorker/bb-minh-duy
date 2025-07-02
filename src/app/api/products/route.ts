@@ -112,6 +112,7 @@ export async function POST(req: NextRequest) {
       description,
       categoryId,
       certificationIds = [],
+      unit
     } = body;
 
     if (!name || !price || !image || !categoryId) {
@@ -121,6 +122,7 @@ export async function POST(req: NextRequest) {
     const [newProduct] = await db
       .insert(products)
       .values({
+        unit,
         name,
         price,
         image,

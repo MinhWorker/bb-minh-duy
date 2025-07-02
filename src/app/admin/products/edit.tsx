@@ -1,5 +1,6 @@
 import { AutocompleteArrayInput, Edit, ImageField, ImageInput, NumberInput, ReferenceArrayInput, ReferenceInput, required, SelectInput, SimpleForm, TextInput, useNotify, useRedirect, useTranslate } from "react-admin"
 import { uploadToCloudinary } from "../../../../lib/upload";
+import BackButton from "../../../../components/BackButton";
 
 {/* eslint-disable  @typescript-eslint/no-explicit-any */ }
 export const ProductsEdit = () => {
@@ -24,6 +25,7 @@ export const ProductsEdit = () => {
           name: values.name,
           description: values.description,
           price: values.price,
+          unit: values.unit,
           image: imageUrl,
           categoryId: values.categoryId,
           certificationIds: values.certifications,
@@ -49,6 +51,7 @@ export const ProductsEdit = () => {
         <TextInput source="name" label={translate("resources.products.name")} fullWidth required />
         <TextInput source="description" label={translate("resources.products.description")} fullWidth required />
         <NumberInput source="price" label={translate("resources.products.price")} required />
+        <TextInput source="unit" label={translate("resources.products.unit")} required />
         <ReferenceInput source="categoryId" reference="categories">
           <SelectInput optionText="name" required label={translate("resources.products.category")} />
         </ReferenceInput>
@@ -67,6 +70,7 @@ export const ProductsEdit = () => {
         >
           <ImageField source="src" title="Uploaded image" />
         </ImageInput>
+        <BackButton url="products" />
       </SimpleForm>
     </Edit>
   )
