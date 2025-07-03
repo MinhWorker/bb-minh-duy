@@ -30,7 +30,6 @@ export default function SignInPage() {
 
       if (response.ok) {
         // --- THIS IS THE SUCCESS REDIRECTION ---
-        console.log('Sign-in successful!', data);
         router.push('/admin'); // Redirect to the admin dashboard
       } else {
         // --- THIS IS THE ERROR MESSAGE DISPLAY ---
