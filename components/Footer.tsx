@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
           <p className="flex items-center gap-5 mt-3">
             <MapPin className="shrink-0" />
-            <span className="max-w-[300px]">Ấp Đông Hưng, Xã Tân Hưng Đông, Cái Nước, Cà Mau</span>
+            <span>Ấp Đông Hưng, Xã Hưng Mỹ, Tỉnh Cà Mau</span>
           </p>
         </div>
       </div>
