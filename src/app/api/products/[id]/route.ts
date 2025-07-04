@@ -5,17 +5,19 @@ import { certifications, products, productsToCertifications } from "../../../../
 import { extractPublicIdFromUrl } from "../../../../../lib/upload";
 import cloudinary from "../../../../../cloudinary.config";
 
+// --- GET /api/products/[id] ---
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const productId = url.pathname.split("/").pop();
+    const idParam = url.pathname.split("/").pop();
+    const productId = Number(idParam);
 
-    if (!productId) {
-      return NextResponse.json({ message: "Product ID is required" }, { status: 400 });
+    if (!idParam || isNaN(productId)) {
+      return NextResponse.json({ message: "Product ID must be a valid number." }, { status: 400 });
     }
 
     const product = await db.query.products.findFirst({
-      where: eq(products.id, productId)
+      where: eq(products.id, productId),
     });
 
     if (!product) {
@@ -32,111 +34,29 @@ export async function GET(req: NextRequest) {
 
     const certificationIds = relatedCertifications.map((cert) => cert.id);
 
-    // Attach certifications to the product
-    const productWithCerts = {
-      ...product,
-      certifications: certificationIds,
-    };
-
-    return NextResponse.json(productWithCerts, { status: 200 });
+    return NextResponse.json({ ...product, certifications: certificationIds }, { status: 200 });
   } catch (error) {
     console.error("API Error: Failed to retrieve product by ID.", error);
     return NextResponse.json({ message: "Failed to retrieve product." }, { status: 500 });
   }
 }
 
+// --- PUT /api/products/[id] ---
 export async function PUT(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const productId = url.pathname.split("/").pop();
+    const idParam = url.pathname.split("/").pop();
+    const productId = Number(idParam);
 
-    if (!productId) {
-      return NextResponse.json({ message: "Product ID is required" }, { status: 400 });
+    if (!idParam || isNaN(productId)) {
+      return NextResponse.json({ message: "Product ID must be a valid number." }, { status: 400 });
     }
 
     const body = await req.json();
     const { name, description, price, image, categoryId, certificationIds, unit } = body;
 
-    if (!name
-      || !description
-      || !price
-      || !image
-      || !categoryId
-      || !certificationIds
-      || !unit
-    ) {
-      return NextResponse.json({ message: 'All field is required' }, { status: 400 });
-    }
-
-    const record = await db.query.products.findFirst({
-      where: eq(products.id, productId)
-    });
-
-    if (!record) {
-      return NextResponse.json({ message: "Not found" }, { status: 404 });
-    }
-
-    const existingProduct = await db.query.products.findFirst({
-      where: eq(products.name, name)
-    });
-
-    if (existingProduct && existingProduct.id !== productId) {
-      const newPublicId = extractPublicIdFromUrl(image);
-
-      if (newPublicId) {
-        await cloudinary.uploader.destroy(newPublicId);
-      }
-
-      return NextResponse.json({ message: `Product with name '${name}' already exists.` }, { status: 409 })
-    }
-
-    const current = record;
-
-    if (image && image !== current.image) {
-      const oldPublicId = extractPublicIdFromUrl(current.image);
-      if (oldPublicId) {
-        await cloudinary.uploader.destroy(oldPublicId);
-      }
-    }
-
-    const updated = await db
-      .update(products)
-      .set({
-        name,
-        description,
-        price,
-        image,
-        categoryId,
-        unit
-      })
-      .where(eq(products.id, productId))
-      .returning();
-
-    await db.delete(productsToCertifications).where(eq(productsToCertifications.productId, productId));
-
-    if (certificationIds && certificationIds.length > 0) {
-      await db.insert(productsToCertifications).values(
-        certificationIds.map((certId: string) => ({
-          productId,
-          certificationId: certId,
-        }))
-      );
-    }
-
-    return NextResponse.json(updated[0], { status: 200 });
-  } catch (error) {
-    console.error(`API Error: `, error);
-    return NextResponse.json({ message: "Failed to update products." }, { status: 500 });
-  }
-}
-
-export async function DELETE(req: NextRequest) {
-  try {
-    const url = new URL(req.url);
-    const productId = url.pathname.split("/").pop();
-
-    if (!productId) {
-      return NextResponse.json({ message: "Product ID is required" }, { status: 400 });
+    if (!name || !description || !price || !image || !unit) {
+      return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
     }
 
     const record = await db.query.products.findFirst({
@@ -144,24 +64,78 @@ export async function DELETE(req: NextRequest) {
     });
 
     if (!record) {
-      return NextResponse.json({ message: "Product not found" }, { status: 404 });
+      return NextResponse.json({ message: "Product not found." }, { status: 404 });
     }
 
-    const product = record;
-    const imageUrl = product.image;
+    const existingProduct = await db.query.products.findFirst({
+      where: eq(products.name, name),
+    });
 
-    const publicId = extractPublicIdFromUrl(imageUrl);
-
-    if (publicId) {
-      await cloudinary.uploader.destroy(publicId);
+    if (existingProduct && existingProduct.id !== productId) {
+      const newPublicId = extractPublicIdFromUrl(image);
+      if (newPublicId) await cloudinary.uploader.destroy(newPublicId);
+      return NextResponse.json({ message: `Product with name '${name}' already exists.` }, { status: 409 });
     }
 
-    // Delete the product (related join rows will be deleted via cascade)
+    // Replace image if different
+    if (image !== record.image) {
+      const oldPublicId = extractPublicIdFromUrl(record.image);
+      if (oldPublicId) await cloudinary.uploader.destroy(oldPublicId);
+    }
+
+    const [updated] = await db
+      .update(products)
+      .set({ name, description, price, image, categoryId, unit })
+      .where(eq(products.id, productId))
+      .returning();
+
+    // Update join table
+    await db.delete(productsToCertifications).where(eq(productsToCertifications.productId, productId));
+
+    if (Array.isArray(certificationIds) && certificationIds.length > 0) {
+      await db.insert(productsToCertifications).values(
+        certificationIds.map((certId: number) => ({
+          productId,
+          certificationId: certId,
+        }))
+      );
+    }
+
+    return NextResponse.json(updated, { status: 200 });
+  } catch (error) {
+    console.error("API Error:", error);
+    return NextResponse.json({ message: "Failed to update product." }, { status: 500 });
+  }
+}
+
+// --- DELETE /api/products/[id] ---
+export async function DELETE(req: NextRequest) {
+  try {
+    const url = new URL(req.url);
+    const idParam = url.pathname.split("/").pop();
+    const productId = Number(idParam);
+
+    if (!idParam || isNaN(productId)) {
+      return NextResponse.json({ message: "Product ID must be a valid number." }, { status: 400 });
+    }
+
+    const record = await db.query.products.findFirst({
+      where: eq(products.id, productId),
+    });
+
+    if (!record) {
+      return NextResponse.json({ message: "Product not found." }, { status: 404 });
+    }
+
+    const publicId = extractPublicIdFromUrl(record.image);
+    if (publicId) await cloudinary.uploader.destroy(publicId);
+
     await db.delete(products).where(eq(products.id, productId));
 
     return NextResponse.json({ message: "Product deleted successfully." }, { status: 200 });
   } catch (error) {
     console.error("Error deleting product:", error);
-    return NextResponse.json({ message: "Failed to delete product" }, { status: 500 });
+    return NextResponse.json({ message: "Failed to delete product." }, { status: 500 });
   }
 }
+

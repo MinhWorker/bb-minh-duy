@@ -1,13 +1,11 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { count, eq } from 'drizzle-orm'; // Used for `where` clause if needed
+import { count, desc, eq, ilike } from 'drizzle-orm'; // Used for `where` clause if needed
 import db from '../../../../db/drizzle'; // Adjust path as per your project structure
 import { certifications } from '../../../../db/schema'; // Adjust path as per your project structure
 import cloudinary from '../../../../cloudinary.config';
 import { extractPublicIdFromUrl } from '../../../../lib/upload';
 
 // --- GET /api/certifications ---
-// Purpose: Fetch all certifications with pagination and sorting.
-// Access: Both admin and normal users.
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = req.nextUrl;
@@ -33,26 +31,29 @@ export async function GET(req: NextRequest) {
           }
         } catch (e) {
           console.error('Failed to parse range parameter:', e);
-          // Fallback to default range if parsing fails
-          start = 0;
-          end = 9;
         }
       }
       offset = start;
       limit = end - start + 1; // Calculate limit for pagination
     }
 
-    // --- DEBUGGING LOGS ---
-    console.log('--- certifications API GET Request ---');
-    console.log('Received Query Params:', searchParams.toString());
-    console.log(`Request has no params: ${searchParams.toString() === ''}`);
-    console.log(`Get All Mode: ${getAllRecords}`);
-    if (!getAllRecords) {
-      console.log(`Parsed Range: start=${start}, end=${end}`);
-      console.log(`Calculated Pagination: limit=${limit}, offset=${offset}`);
-    }
-    // --- END DEBUGGING LOGS ---
+    const filterParam = searchParams.get("filter");
+    let searchQuery = "";
 
+    if (filterParam) {
+      try {
+        const parsedFilter = JSON.parse(filterParam);
+        if (typeof parsedFilter.q === "string") {
+          searchQuery = parsedFilter.q.trim();
+        }
+      } catch (e) {
+        console.error("Failed to parse filter parameter:", e);
+      }
+    }
+
+    const whereClause = searchQuery
+      ? ilike(certifications.name, `%${searchQuery}%`)
+      : undefined;
 
     // 1. Get total count for X-Total-Count header (always needed for the header)
     const totalCountResult = await db
@@ -60,20 +61,12 @@ export async function GET(req: NextRequest) {
       .from(certifications);
     const totalCount = totalCountResult[0].count;
 
-    console.log('Total Count:', totalCount);
-
-    // 2. Prepare findMany options
-    const findManyOptions: { limit?: number; offset?: number; } = {}; // No orderBy property needed
-
-    // Apply limit and offset ONLY if NOT in 'get all' mode
-    if (!getAllRecords) {
-      findManyOptions.limit = limit;
-      findManyOptions.offset = offset;
-    }
-
-    const fetchedcertifications = await db.query.certifications.findMany(findManyOptions); // Removed orderBy
-
-    console.log('Returned certifications Count (actual data length):', fetchedcertifications.length);
+    const fetchedcertifications = await db.query.certifications.findMany({
+      where: whereClause,
+      limit,
+      offset,
+      orderBy: (desc(certifications.id))
+    });
 
     // 3. Set the X-Total-Count header and Content-Range
     const response = NextResponse.json(fetchedcertifications, { status: 200 });

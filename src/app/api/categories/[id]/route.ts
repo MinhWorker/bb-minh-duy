@@ -1,19 +1,21 @@
-// app/api/categories/[id]/route.ts
 import { NextResponse, NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
-import db from '../../../../../db/drizzle'; // Adjust path as needed
-import { categories } from '../../../../../db/schema'; // Adjust path as needed
+import db from '../../../../../db/drizzle';
+import { categories } from '../../../../../db/schema';
 
 // --- GET /api/categories/[id] ---
-// Purpose: Get a single category by its ID.
-// Access: Admin and normal users.
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const categoryId = url.pathname.split('/').pop();
+    const categoryIdParam = url.pathname.split('/').pop();
 
-    if (!categoryId) {
+    if (!categoryIdParam) {
       return NextResponse.json({ message: 'Category ID is required.' }, { status: 400 });
+    }
+
+    const categoryId = Number(categoryIdParam);
+    if (isNaN(categoryId)) {
+      return NextResponse.json({ message: 'Category ID must be a number.' }, { status: 400 });
     }
 
     const category = await db.query.categories.findFirst({
@@ -32,16 +34,19 @@ export async function GET(req: NextRequest) {
 }
 
 // --- PUT /api/categories/[id] ---
-// Purpose: Update a category's name.
-// Access: Admin only (enforced by middleware).
 export async function PUT(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const categoryId = url.pathname.split('/').pop();
+    const categoryIdParam = url.pathname.split('/').pop();
     const { name } = await req.json();
 
-    if (!categoryId) {
+    if (!categoryIdParam) {
       return NextResponse.json({ message: 'Category ID is required.' }, { status: 400 });
+    }
+
+    const categoryId = Number(categoryIdParam);
+    if (isNaN(categoryId)) {
+      return NextResponse.json({ message: 'Category ID must be a number.' }, { status: 400 });
     }
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
@@ -50,7 +55,7 @@ export async function PUT(req: NextRequest) {
 
     const trimmedName = name.trim();
 
-    // Check if the category exists
+    // Check if category exists
     const existingCategory = await db.query.categories.findFirst({
       where: eq(categories.id, categoryId),
     });
@@ -59,8 +64,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ message: `Category with ID '${categoryId}' not found.` }, { status: 404 });
     }
 
-
-    // Check for name conflict (different category with the same name)
+    // Check for name conflict
     const nameConflict = await db.query.categories.findFirst({
       where: eq(categories.name, trimmedName),
     });
@@ -69,7 +73,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ message: `Category with name '${trimmedName}' already exists.` }, { status: 409 });
     }
 
-
     const [updatedCategory] = await db
       .update(categories)
       .set({ name: trimmedName })
@@ -77,7 +80,7 @@ export async function PUT(req: NextRequest) {
       .returning();
 
     if (!updatedCategory) {
-      return NextResponse.json({ message: `Category with ID '${categoryId}' not found or update failed.` }, { status: 404 }); // Should not happen given the existence check above, but good to have
+      return NextResponse.json({ message: `Update failed.` }, { status: 500 });
     }
 
     return NextResponse.json(updatedCategory, { status: 200 });
@@ -88,15 +91,18 @@ export async function PUT(req: NextRequest) {
 }
 
 // --- DELETE /api/categories/[id] ---
-// Purpose: Delete a category.
-// Access: Admin only (enforced by middleware).
 export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const categoryId = url.pathname.split('/').pop();
+    const categoryIdParam = url.pathname.split('/').pop();
 
-    if (!categoryId) {
+    if (!categoryIdParam) {
       return NextResponse.json({ message: 'Category ID is required.' }, { status: 400 });
+    }
+
+    const categoryId = Number(categoryIdParam);
+    if (isNaN(categoryId)) {
+      return NextResponse.json({ message: 'Category ID must be a number.' }, { status: 400 });
     }
 
     const [deletedCategory] = await db
@@ -108,7 +114,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ message: `Category with ID '${categoryId}' not found.` }, { status: 404 });
     }
 
-    return new NextResponse(null, { status: 204 }); // 204 No Content (successful deletion)
+    return new NextResponse(null, { status: 204 });
   } catch (error) {
     console.error('API Error: Failed to delete category.', error);
     return NextResponse.json({ message: 'Failed to delete category.' }, { status: 500 });
