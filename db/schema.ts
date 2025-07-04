@@ -1,14 +1,14 @@
-import { relations, sql } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar, primaryKey, numeric, check } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { pgTable, text, timestamp, varchar, primaryKey, numeric, serial } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
-  id: uuid('id').defaultRandom().notNull().primaryKey(),
+  id: serial('id').notNull().primaryKey(),
   username: varchar("username", { length: 256 }).notNull().unique(),
   password: text("password").notNull(),
 })
 
 export const categories = pgTable("categories", {
-  id: uuid('id').defaultRandom().notNull().primaryKey(),
+  id: serial('id').notNull().primaryKey(),
   name: varchar("name", { length: 256 }).notNull().unique()
 })
 
@@ -18,7 +18,7 @@ export const categoriesRelation = relations(categories, ({ many }) => ({
 }))
 
 export const products = pgTable("products", {
-  id: uuid('id').defaultRandom().notNull().primaryKey(),
+  id: serial('id').notNull().primaryKey(),
   name: varchar("name", { length: 256 }).notNull(),
   price: numeric("price").notNull(),
   image: text("image").notNull(), // Store cloudinary public image id
@@ -27,7 +27,7 @@ export const products = pgTable("products", {
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
     .notNull()
     .defaultNow(),
-  categoryId: uuid("category_id").references(() => categories.id, { onDelete: "set null" })
+  categoryId: serial("category_id").references(() => categories.id, { onDelete: "set null" })
 })
 
 // products n..1 categories
@@ -41,7 +41,7 @@ export const productsRelation = relations(products, ({ one, many }) => ({
 }))
 
 export const certifications = pgTable("certifications", {
-  id: uuid('id').defaultRandom().notNull().primaryKey(),
+  id: serial('id').notNull().primaryKey(),
   name: varchar("name", { length: 256 }).notNull().unique(),
   image: text("image").notNull() // Store cloudinary public image id
 })
@@ -53,10 +53,10 @@ export const certificationsRelation = relations(certifications, ({ many }) => ({
 
 export const productsToCertifications = pgTable("products_to_certifications", {
 
-  productId: uuid("product_id")
+  productId: serial("product_id")
     .references(() => products.id, { onDelete: "cascade" })
     .notNull(),
-  certificationId: uuid("certification_id")
+  certificationId: serial("certification_id")
     .references(() => certifications.id, { onDelete: "cascade" })
     .notNull(),
 },

@@ -1,4 +1,13 @@
-import { Datagrid, DateField, ImageField, List, NumberField, ReferenceField, TextField, useRecordContext, useTranslate } from "react-admin";
+import { Datagrid, DateField, ImageField, List, NumberField, ReferenceField, SearchInput, TextField, useRecordContext, useTranslate } from "react-admin";
+
+const productSearch = [
+  <SearchInput
+    key="product-search"
+    source="q"
+    alwaysOn
+    placeholder="Tìm kiếm sản phẩm"
+  />
+]
 
 export const ProductsList = () => {
   const translate = useTranslate();
@@ -28,7 +37,7 @@ export const ProductsList = () => {
   };
 
   return (
-    <List>
+    <List filters={productSearch}>
       <Datagrid rowClick="edit">
         <TextField source="id" label={translate("resources.products.id")} sortable={false} />
         <TextField source="name" label={translate("resources.products.name")} sortable={false} />

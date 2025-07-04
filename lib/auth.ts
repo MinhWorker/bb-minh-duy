@@ -15,24 +15,27 @@ export async function comparePassword(password: string, hash: string): Promise<b
   return bcrypt.compare(password, hash);
 }
 
-export async function createSessionToken(userId: string): Promise<string> {
-  const jwt = await new jose.SignJWT({ userId })
+export async function createSessionToken(userId: number): Promise<string> {
+  const token = await new jose.SignJWT({ userId })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime(Math.floor(Date.now() / 1000) + JWT_LIFETIME_SECONDS)
     .sign(JWT_SECRET);
-  return jwt;
+
+  return token;
 }
 
-export async function verifySessionToken(token: string): Promise<{ userId: string } | null> {
+export async function verifySessionToken(token: string): Promise<{ userId: number } | null> {
   try {
     const { payload } = await jose.jwtVerify(token, JWT_SECRET, {
       algorithms: ['HS256'],
     });
-    // Check if payload.userId exists to ensure it's a valid structure
-    if (typeof payload.userId === 'string') {
+
+    // ✅ Check if userId is a number (serial ID)
+    if (typeof payload.userId === 'number') {
       return { userId: payload.userId };
     }
+
     return null;
   } catch (error) {
     console.error('JWT verification failed:', error);
@@ -40,7 +43,7 @@ export async function verifySessionToken(token: string): Promise<{ userId: strin
   }
 }
 
-export async function getSessionUser(req: NextRequest): Promise<{ id: string } | null> {
+export async function getSessionUser(req: NextRequest): Promise<{ id: number } | null> {
   const token = req.cookies.get('session')?.value;
   if (!token) {
     return null;

@@ -7,7 +7,13 @@ export async function POST(req: NextRequest) {
   try {
     const { searchParams } = req.nextUrl;
     const body = await req.json();
-    const categoryIds: string[] = body.categoryIds ?? [];
+
+    // Parse categoryIds as numbers (from string or number array)
+    const rawCategoryIds = body.categoryIds ?? [];
+    const categoryIds: number[] = rawCategoryIds
+      .filter((id: unknown) => id !== undefined && id !== null)
+      .map((id: string | number) => Number(id))
+      .filter((id: number) => !isNaN(id));
 
     const page = Number(searchParams.get("page")) || 1;
     const limit = 7;
@@ -15,20 +21,17 @@ export async function POST(req: NextRequest) {
 
     // -- Build filter condition --
     let whereClause;
-    if (categoryIds.length > 0) {
-      const includesNone = categoryIds.includes("none");
-      const filteredIds = categoryIds.filter((id) => id !== "none");
+    const includesNone = rawCategoryIds.includes("none");
 
-      if (includesNone && filteredIds.length > 0) {
-        whereClause = or(
-          inArray(products.categoryId, filteredIds),
-          isNull(products.categoryId)
-        );
-      } else if (includesNone) {
-        whereClause = isNull(products.categoryId);
-      } else {
-        whereClause = inArray(products.categoryId, filteredIds);
-      }
+    if (includesNone && categoryIds.length > 0) {
+      whereClause = or(
+        inArray(products.categoryId, categoryIds),
+        isNull(products.categoryId)
+      );
+    } else if (includesNone) {
+      whereClause = isNull(products.categoryId);
+    } else if (categoryIds.length > 0) {
+      whereClause = inArray(products.categoryId, categoryIds);
     }
 
     // -- Get total count --
@@ -42,7 +45,7 @@ export async function POST(req: NextRequest) {
       where: whereClause,
       limit,
       offset,
-      orderBy: [desc(products.createdAt)],
+      orderBy: [desc(products.id)],
       columns: {
         id: true,
         name: true,
@@ -65,3 +68,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+

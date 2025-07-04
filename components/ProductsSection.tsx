@@ -9,6 +9,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ProductFilter from "./products/ProductFilter";
 import { MultiValue } from "react-select";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 type ProductsProps = {
   id: string,
@@ -88,7 +90,6 @@ const ProductsSection = () => {
       }),
     });
     const data = await res.json();
-    console.log(data);
     setProducts(data.products);
     setTotal(data.total);
     setIsLoading(false);
@@ -154,8 +155,10 @@ const ProductsSection = () => {
                     {!isProductLoading && product ? (
                       <div className="grid sm:grid-cols-[40%_60%]">
                         <div>
-                          <div className="w-[75%] mx-auto sm:w-full aspect-square relative border border-accent rounded-md overflow-hidden">
-                            <Image src={product.image} alt={product.name} fill className="object-cover" sizes="(max-width: 640px): 75%,(max-width: 1902px) 100%" />
+                          <div className="w-[75%] mx-auto sm:w-full aspect-square relative border border-accent rounded-md overflow-hidden hover:cursor-pointer" style={{ touchAction: "pan-y" }}>
+                            <Zoom>
+                              <Image src={product.image} alt={product.name} fill className="object-cover" sizes="(max-width: 640px): 75%,(max-width: 1902px) 100%" />
+                            </Zoom>
                           </div>
 
                           <div className="hidden sm:block">

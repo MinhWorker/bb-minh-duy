@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const GoalsSection = () => {
   return (
-    <section className="my-12 min-h-screen scroll-mt-28" id="goals">
+    <section className="my-12 scroll-mt-28" id="goals">
 
       <h1 className="text-primary-foreground text-center font-semibold text-[40px] mb-4 text-shadow-md text-shadow-accent/25">MỤC TIÊU</h1>
 
