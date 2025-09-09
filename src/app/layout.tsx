@@ -19,7 +19,7 @@ const gwendolyn = Gwendolyn({
 })
 
 export const metadata: Metadata = {
-  title: "BB Minh Duy",
+  title: "HTX Bồn Bồn Minh Duy",
   description: "Khám phá các sản phẩm nông nghiệp địa phương chất lượng cao từ hợp tác xã BB Minh Duy. Hỗ trợ nông dân và tìm kiếm trực tuyến dễ dàng.",
 };
 
