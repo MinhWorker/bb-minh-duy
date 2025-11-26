@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import MobileSidebar from "../../components/MobileSidebar";
 import ProceduresSection from "../../components/ProceduresSection";
 import ProductsSection from "../../components/ProductsSection";
+import CookGuideSection from "../../components/CookGuideSection";
 
 export default function Home() {
 
@@ -17,6 +18,8 @@ export default function Home() {
       <AboutUsSection />
 
       <ProductsSection />
+
+      <CookGuideSection />
 
       <GoalsSection />
 
