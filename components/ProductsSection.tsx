@@ -187,10 +187,13 @@ const ProductsSection = () => {
 
                           <div className="text-lg mb-4">Phân loại: <span className="text-nowrap text-sm text-white bg-primary shadow-lg rounded-md py-2 px-3">{product.categories.name}</span></div>
 
-                          <div className="text-lg">
-                            Mô tả:
-                            <p className="text-sm">{product.description}</p>
-                          </div>
+                            <div className="text-lg">
+                                Mô tả:
+                                <div
+                                    className="text-sm"
+                                    dangerouslySetInnerHTML={{ __html: product.description }}
+                                />
+                            </div>
                         </div>
 
 
