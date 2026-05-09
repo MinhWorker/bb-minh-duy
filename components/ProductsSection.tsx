@@ -16,7 +16,8 @@ type ProductsProps = {
   id: string,
   name: string,
   price: number,
-  image: string
+  image: string,
+  ocopLevel?: number
 }
 
 type ProductDetailModalProps = {
@@ -77,7 +78,7 @@ const ProductsSection = () => {
     const formattedCategories = chosenCategories.map((category) => category.value);
 
     fetchProducts(formattedCategories);
-  }, [page]);
+  }, [page, chosenCategories, setTotal]);
 
   const handleFilter = async (
     options?: string[]) => {
@@ -104,44 +105,26 @@ const ProductsSection = () => {
   }
 
   return (
-    <section className="my-12 min-h-screen scroll-mt-28 relative" id="products">
-      <h1 className="text-primary-foreground text-center font-semibold text-[40px] mb-4 text-shadow-md text-shadow-accent/25">SẢN PHẨM</h1>
-
-      {/* pure background asset */}
-      <div className="absolute top-10 left-0 -z-10 w-[400px] aspect-square">
-        <Image
-          src="/images/cattail2.png"
-          alt=""
-          fill
-          aria-hidden={true}
-          className="object-contain"
-          sizes="(max-width: 1902px) 400px"
-        />
+    <section className="py-24 scroll-mt-28 relative" id="products">
+      <div className="text-center mb-16">
+        <span className="font-gwendolyn text-3xl text-primary mb-2 block">Sản phẩm của chúng tôi</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground">Đặc Sản Cà Mau</h2>
+        <div className="w-24 h-1 bg-primary/20 mx-auto mt-6 rounded-full"></div>
       </div>
 
-      {/* pure background asset */}
-      <div className="absolute bottom-10 right-0 -z-10 w-[400px] aspect-square">
-        <Image
-          src="/images/cattail3.png"
-          alt=""
-          fill
-          aria-hidden={true}
-          className="object-contain"
-          sizes="(max-width: 1902px) 400px"
-        />
-      </div>
-
-      <div>
+      <div className="mb-12">
         <ProductFilter handleFilter={handleFilter} chosenCategories={chosenCategories} setChosenCategories={setChosenCategories} />
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center px-4">
         {!isLoading && products ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 w-full max-w-7xl">
             {products.map((p: ProductsProps) => (
               <Dialog key={p.id}>
-                <DialogTrigger onClick={() => handleOpen(p.id)}>
-                  <ProductCard name={p.name} image={p.image} price={p.price} />
+                <DialogTrigger asChild onClick={() => handleOpen(p.id)}>
+                  <div className="cursor-pointer">
+                    <ProductCard name={p.name} image={p.image} price={p.price} ocopLevel={p.ocopLevel} />
+                  </div>
                 </DialogTrigger>
 
                 <DialogContent

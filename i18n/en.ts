@@ -137,6 +137,14 @@ const messages: TranslationMessages = {
       regex: 'Must match the pattern: %{pattern}',
     },
   },
+  landing: {
+    zalo_button: 'Hello HTX Minh Duy, I would like to get some advice',
+    story_title: 'The Story of Ca Mau Cattail',
+    story_content: 'Cattail is not just a livelihood, it is the soul of Tan Hung Dong land. Each jar of pickled cattail is the dedication of Ca Mau grandmothers and mothers, infusing the flavor of salty alluvium into each white strand.',
+    story_title_2: 'Community Value',
+    story_content_2: 'We believe that clean agriculture not only protects consumer health but is also a sustainable path to improve the lives of local farmers.',
+    ocop_badge: 'OCOP %{level} stars',
+  },
   resources: {
     products: {
       id: 'ID',

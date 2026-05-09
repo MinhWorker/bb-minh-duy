@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import db from '../../../../db/drizzle';
 import { users } from '../../../../db/schema';
-import { comparePassword, createSessionToken } from '../../../../lib/auth';
+import { createSessionToken } from '../../../../lib/auth';
+import { comparePassword } from '../../../../lib/password';
 
 export async function POST(req: NextRequest) {
   try {

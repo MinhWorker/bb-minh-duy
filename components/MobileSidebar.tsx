@@ -33,12 +33,12 @@ const MobileSidebar = () => {
         >
           <div className="flex items-center justify-between">
             <div className="w-10 relative aspect-square">
-              <Image src="/images/logo.png" alt="BB Minh Duy logo" fill className="object-cover" sizes="(max-width: 1920px) calc(var(--spacing)*10)" />
+              <Image src="/images/logo.png" alt="BB Minh Duy logo" fill className="object-cover" sizes="40px" />
             </div>
-            <p className="font-gwendolyn text-primary-foreground text-xl font-semibold">BB Minh Duy</p>
-            <div onClick={hide} className="w-10">
-              <X />
-            </div>
+            <p className="font-gwendolyn text-foreground text-2xl font-bold">BB Minh Duy</p>
+            <button onClick={hide} className="p-2 text-foreground">
+              <X size={24} />
+            </button>
           </div>
 
           <nav className="mt-5">

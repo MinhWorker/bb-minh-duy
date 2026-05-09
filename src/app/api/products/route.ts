@@ -98,7 +98,8 @@ export async function POST(req: NextRequest) {
       description,
       categoryId,
       certificationIds = [],
-      unit
+      unit,
+      ocopLevel
     } = body;
 
     if (!name || !price || !image || !categoryId) {
@@ -114,6 +115,7 @@ export async function POST(req: NextRequest) {
         image,
         description,
         categoryId,
+        ocopLevel
       })
       .returning();
 

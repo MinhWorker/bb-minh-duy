@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
         name: true,
         price: true,
         image: true,
+        ocopLevel: true,
       },
     });
 

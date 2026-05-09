@@ -1,19 +1,9 @@
 // lib/auth.ts
-import bcrypt from 'bcryptjs';
 import * as jose from 'jose';
 import { NextRequest } from 'next/server';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 const JWT_LIFETIME_SECONDS = 60 * 30; // 30 minutes
-
-export async function hashPassword(password: string): Promise<string> {
-  const saltRounds = 10;
-  return bcrypt.hash(password, saltRounds);
-}
-
-export async function comparePassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash);
-}
 
 export async function createSessionToken(userId: number): Promise<string> {
   const token = await new jose.SignJWT({ userId })

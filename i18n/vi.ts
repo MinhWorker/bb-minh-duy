@@ -136,6 +136,14 @@ const messages: TranslationMessages = {
       regex: 'Phải đúng định dạng: %{pattern}',
     },
   },
+  landing: {
+    zalo_button: 'Chào HTX Minh Duy, tôi muốn được tư vấn',
+    story_title: 'Chuyện về cây bồn bồn Cà Mau',
+    story_content: 'Cây bồn bồn không chỉ là nguồn sống, mà còn là linh hồn của vùng đất Tân Hưng Đông. Mỗi hũ dưa bồn bồn là tâm huyết của những người bà, người mẹ Cà Mau, gửi gắm hương vị phù sa mặn nồng vào từng sợi dưa trắng nõn.',
+    story_title_2: 'Giá trị cộng đồng',
+    story_content_2: 'Chúng tôi tin rằng nông nghiệp sạch không chỉ bảo vệ sức khỏe người dùng mà còn là con đường bền vững để nâng cao đời sống cho bà con nông dân địa phương.',
+    ocop_badge: 'OCOP %{level} sao',
+  },
   resources: {
     products: {
       id: "Mã",

@@ -2,61 +2,55 @@
 
 const CookGuideSection = () => {
     return (
-        <section className="w-full py-16 px-4 bg-gradient-to-b from-green-100 to-white">
-            <div className="max-w-4xl mx-auto rounded-3xl p-10 shadow-xl bg-white/70 backdrop-blur-md border border-green-100">
+        <section className="py-24 px-4 bg-white" id="cookguide">
+            <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-16">
+                    <span className="font-gwendolyn text-3xl text-primary mb-2 block">Cảm hứng ẩm thực</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-foreground">Hướng Dẫn Chế Biến</h2>
+                    <div className="w-24 h-1 bg-primary/20 mx-auto mt-6 rounded-full"></div>
+                </div>
 
-                <h2 className="text-3xl font-extrabold text-green-700 mb-8 text-center tracking-wide">
-                    Hướng Dẫn Chế Biến & Sử Dụng Dưa Bồn Bồn
-                </h2>
-
-                <div className="space-y-8 text-gray-700 leading-relaxed">
-
+                <div className="grid md:grid-cols-3 gap-8">
                     {/* Block 1 */}
-                    <div className="p-6 rounded-2xl bg-green-50 hover:bg-green-100 transition-all duration-300 shadow-sm">
-                        <h3 className="font-bold text-xl text-green-700 mb-2 flex items-center gap-2">
-                            <span className="w-3 h-3 bg-green-600 rounded-full"></span>
-                            1. Chuẩn Bị Nguyên Liệu
-                        </h3>
-                        <p>
-                            - Dưa bồn bồn rửa sạch, để ráo.<br />
-                            - Tỏi, ớt băm nếu muốn làm món trộn.<br />
-                            - Gia vị: muối, đường, nước mắm tùy khẩu vị.
-                        </p>
+                    <div className="group p-8 rounded-[2rem] bg-secondary/30 hover:bg-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-primary/5">
+                        <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">1</div>
+                        <h3 className="font-bold text-xl text-foreground mb-4">Chuẩn Bị</h3>
+                        <ul className="space-y-3 text-muted-foreground">
+                            <li>• Dưa bồn bồn rửa sạch, để ráo</li>
+                            <li>• Tỏi, ớt băm (tùy món)</li>
+                            <li>• Gia vị: muối, đường, nước mắm</li>
+                        </ul>
                     </div>
 
                     {/* Block 2 */}
-                    <div className="p-6 rounded-2xl bg-green-50 hover:bg-green-100 transition-all duration-300 shadow-sm">
-                        <h3 className="font-bold text-xl text-green-700 mb-2 flex items-center gap-2">
-                            <span className="w-3 h-3 bg-green-600 rounded-full"></span>
-                            2. Cách Chế Biến Nhanh
-                        </h3>
-                        <p>
-                            - <b>Ăn liền:</b> Lấy dưa ra khỏi túi, để ráo rồi dùng ngay.<br />
-                            - <b>Trộn gỏi:</b> Trộn dưa bồn bồn với tôm thịt, rau thơm, nước mắm chua ngọt.<br />
-                            - <b>Xào:</b> Xào dưa bồn bồn với thịt heo hoặc bò, giữ lửa lớn cho giòn.<br />
-                            - <b>Nấu canh:</b> Nấu với tôm hoặc cá, vị thanh mát.
-                        </p>
+                    <div className="group p-8 rounded-[2rem] bg-secondary/30 hover:bg-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-primary/5">
+                        <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">2</div>
+                        <h3 className="font-bold text-xl text-foreground mb-4">Chế Biến Nhanh</h3>
+                        <ul className="space-y-3 text-muted-foreground">
+                            <li>• <b>Ăn liền:</b> Dùng ngay sau khi để ráo</li>
+                            <li>• <b>Trộn gỏi:</b> Trộn với tôm thịt, rau thơm</li>
+                            <li>• <b>Xào:</b> Xào nhanh với lửa lớn</li>
+                            <li>• <b>Nấu canh:</b> Nấu với tôm hoặc cá</li>
+                        </ul>
                     </div>
 
                     {/* Block 3 */}
-                    <div className="p-6 rounded-2xl bg-green-50 hover:bg-green-100 transition-all duration-300 shadow-sm">
-                        <h3 className="font-bold text-xl text-green-700 mb-2 flex items-center gap-2">
-                            <span className="w-3 h-3 bg-green-600 rounded-full"></span>
-                            3. Cách Sử Dụng Ngon Nhất
-                        </h3>
-                        <p>
-                            - Dùng kèm bữa cơm gia đình, đặc biệt phù hợp món kho hoặc rỏi.<br />
-                            - Làm món lẩu trong tiệc gia đình<br />
-                            - Bảo quản trong ngăn mát và dùng trong 2-3 ngày sau khi mở túi.
-                        </p>
+                    <div className="group p-8 rounded-[2rem] bg-secondary/30 hover:bg-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-primary/5">
+                        <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">3</div>
+                        <h3 className="font-bold text-xl text-foreground mb-4">Mẹo Ngon Nhất</h3>
+                        <ul className="space-y-3 text-muted-foreground">
+                            <li>• Dùng kèm món kho hoặc gỏi</li>
+                            <li>• Làm món lẩu tiệc gia đình</li>
+                            <li>• Bảo quản ngăn mát 2-3 ngày</li>
+                        </ul>
                     </div>
+                </div>
 
-                    {/* Footer note */}
-                    <div className="pt-6 text-center">
-                        <p className="italic text-green-700 font-semibold text-lg">
-                            Dưa bồn bồn – giòn tự nhiên, vị thanh lành, món quê Cà Mau dễ chế biến cho mọi nhà.
-                        </p>
-                    </div>
+                <div className="mt-16 p-10 bg-primary text-primary-foreground rounded-[2.5rem] text-center shadow-xl shadow-primary/20 relative overflow-hidden group">
+                    <p className="relative z-10 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+                        &quot;Dưa bồn bồn – giòn tự nhiên, vị thanh lành, món quê Cà Mau dễ chế biến cho mọi nhà.&quot;
+                    </p>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
                 </div>
             </div>
         </section>

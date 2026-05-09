@@ -53,7 +53,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, description, price, image, categoryId, certificationIds, unit } = body;
+    const { name, description, price, image, categoryId, certificationIds, unit, ocopLevel } = body;
 
     if (!name || !description || !price || !image || !unit) {
       return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
@@ -85,7 +85,7 @@ export async function PUT(req: NextRequest) {
 
     const [updated] = await db
       .update(products)
-      .set({ name, description, price, image, categoryId, unit })
+      .set({ name, description, price, image, categoryId, unit, ocopLevel })
       .where(eq(products.id, productId))
       .returning();
 

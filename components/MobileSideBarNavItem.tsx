@@ -5,7 +5,7 @@ const MobileSidebarNavItem = ({ name, id, icon }: { name: string, id: string, ic
     <li className="my-2">
       <a
         href={`#${id}`}
-        className="flex items-center justify-between text-primary-foreground p-2 active:bg-accent rounded-lg"
+        className="flex items-center justify-between text-foreground p-3 active:bg-secondary rounded-xl transition-colors"
         aria-label={`Going to ${name} section`}
       >
         <div className="flex items-center gap-3">

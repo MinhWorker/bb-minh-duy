@@ -4,53 +4,80 @@ import { Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-foreground rounded-t-[50px] pt-16 pb-6" id="contact">
-      <div className="flex flex-wrap md:justify-center gap-10 lg:gap-20 px-10 lg:px-0">
-        <div className="w-full lg:w-auto flex justify-center">
-          <div className="flex flex-col items-center">
-            <div className="w-[120px] relative aspect-square">
-              <Image src="/images/logo.png" fill alt="BB Minh Duy logo" className="object-cover" sizes="(max-width: 1920px) 120px" />
+    <footer className="bg-[#1a2e1a] text-white rounded-t-[60px] pt-24 pb-12 overflow-hidden relative" id="contact">
+      {/* Decorative leaf/shape (conceptual) */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+          {/* Logo & Brand Story */}
+          <div className="col-span-1 lg:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 relative">
+                <Image src="/images/logo.png" fill alt="BB Minh Duy logo" className="object-cover" sizes="48px" />
+              </div>
+              <span className="font-gwendolyn text-3xl font-bold">BB Minh Duy</span>
             </div>
-            <p className="font-gwendolyn font-semibold text-2xl text-white mt-3 tracking-widest">BB Minh Duy</p>
+            <p className="text-white/70 leading-relaxed mb-8">
+              Gìn giữ hương vị truyền thống Cà Mau qua từng sản phẩm OCOP chất lượng cao. Chúng tôi tự hào đồng hành cùng người nông dân Tân Hưng Đông.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-xl font-bold mb-8">Liên Kết Nhanh</h4>
+            <nav>
+              <ul className="space-y-4">
+                <FooterNavItem name="Về chúng tôi" id="aboutus" />
+                <FooterNavItem name="Sản phẩm" id="products" />
+                <FooterNavItem name="Mục tiêu" id="goals" />
+                <FooterNavItem name="Quy trình" id="procedures" />
+              </ul>
+            </nav>
+          </div>
+
+          {/* Contact Info */}
+          <div className="lg:col-span-2">
+            <h4 className="text-xl font-bold mb-8">Liên Hệ Trực Tiếp</h4>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="bg-white/10 p-3 rounded-xl"><Mail size={20} /></div>
+                <div>
+                  <p className="text-sm text-white/50 mb-1 uppercase tracking-wider">Email</p>
+                  <p className="font-medium">htxbonbonminhduy@gmail.com</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <div className="bg-white/10 p-3 rounded-xl">
+                  <Image src="/images/zalo-icon.svg" width={20} height={20} alt="zalo" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/50 mb-1 uppercase tracking-wider">Zalo / Điện thoại</p>
+                  <p className="font-medium">(+84) 948 055 359</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="bg-white/10 p-3 rounded-xl"><MapPin size={20} className="shrink-0" /></div>
+                <div>
+                  <p className="text-sm text-white/50 mb-1 uppercase tracking-wider">Địa chỉ</p>
+                  <p className="font-medium leading-relaxed">Ấp Đông Hưng, Xã Hưng Mỹ, Huyện Cái Nước, Tỉnh Cà Mau</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <nav>
-          <ul>
-            <FooterNavItem name="Về chúng tôi" id="aboutus" />
-            <FooterNavItem name="Sản phẩm" id="products" />
-            <FooterNavItem name="Mục tiêu" id="goals" />
-            <FooterNavItem name="Quy trình" id="procedures" />
-            <FooterNavItem name="Liên hệ" id="contact" />
-          </ul>
-        </nav>
-
-        <div className="text-white w-full md:w-auto">
-          <h2 className="font-bold text-xl">Liên hệ</h2>
-          <p className="flex items-center gap-5 mt-3">
-            <Mail />
-            <span>htxbonbonminhduy@gmail.com </span>
-          </p>
-          <div className="flex items-center gap-5 mt-3">
-            <div className="relative w-[25px] aspect-square">
-              <Image
-                src="/images/zalo-icon.svg"
-                fill
-                alt="zalo"
-                className="object-contain"
-              />
-            </div>
-            <span>(+84) 948 055 359</span>
+        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-white/40 text-sm">
+          <p>© 2025 Hợp Tác Xã Bồn Bồn Minh Duy. Tất cả quyền được bảo lưu.</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-white transition-colors">Chính sách bảo mật</a>
+            <a href="#" className="hover:text-white transition-colors">Điều khoản dịch vụ</a>
           </div>
-          <p className="flex items-center gap-5 mt-3">
-            <MapPin className="shrink-0" />
-            <span>Ấp Đông Hưng, Xã Hưng Mỹ, Tỉnh Cà Mau</span>
-          </p>
         </div>
       </div>
-
-      <p className="w-full text-center text-white font-normal text-xs mt-10">Copyright &#169; 2025 BB Minh Duy. All rights reserved.</p>
-    </footer >
+    </footer>
   )
 }
 
