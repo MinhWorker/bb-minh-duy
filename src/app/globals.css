@@ -78,6 +78,111 @@ img { max-width: 100%; }
 ::selection { background: #cbd7bd; color: var(--deep-green); }
 :focus-visible { outline: 3px solid rgba(184, 106, 60, 0.55); outline-offset: 4px; }
 
+.signin-page {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 32px 20px;
+  background:
+    radial-gradient(circle at 15% 18%, rgba(203, 215, 189, 0.75), transparent 28rem),
+    radial-gradient(circle at 88% 82%, rgba(184, 106, 60, 0.14), transparent 25rem),
+    var(--page-bg);
+}
+.signin-page::before, .signin-page::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(22, 91, 59, 0.13);
+  border-radius: 70% 30% 65% 35%;
+  transform: rotate(24deg);
+}
+.signin-page::before { top: -115px; right: -70px; }
+.signin-page::after { bottom: -130px; left: -70px; transform: rotate(-18deg); }
+.signin-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 480px);
+  padding: clamp(28px, 5vw, 46px);
+  border: 1px solid rgba(31, 51, 42, 0.14);
+  border-radius: 18px;
+  background: rgba(251, 247, 238, 0.96);
+  box-shadow: var(--shadow);
+}
+.signin-brand { display: inline-flex; align-items: center; gap: 13px; margin-bottom: 38px; }
+.signin-brand-mark { position: relative; display: block; width: 58px; height: 58px; flex: 0 0 auto; }
+.signin-brand-mark img { object-fit: contain; }
+.signin-brand > span:last-child { display: grid; line-height: 1.25; }
+.signin-brand strong { color: var(--green); font-family: var(--font-heading); font-size: 1.03rem; }
+.signin-brand small { margin-top: 3px; color: var(--muted-ink); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.signin-heading { display: grid; grid-template-columns: 46px 1fr; gap: 15px; align-items: start; margin-bottom: 30px; }
+.signin-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: var(--sage); color: var(--green); }
+.signin-icon svg { width: 20px; height: 20px; }
+.signin-heading h1 { margin: 0 0 6px; color: var(--green); font-family: var(--font-heading); font-size: clamp(1.8rem, 5vw, 2.3rem); line-height: 1.12; letter-spacing: -0.03em; }
+.signin-heading p { margin: 0; color: var(--muted-ink); font-size: 0.84rem; }
+.signin-form { display: grid; gap: 20px; }
+.signin-form > label { display: grid; gap: 8px; color: var(--ink); font-size: 0.78rem; font-weight: 700; }
+.signin-form input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf8;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.signin-form input::placeholder { color: #8b948e; }
+.signin-form input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22, 91, 59, 0.12); }
+.signin-password { position: relative; display: block; }
+.signin-password input { padding-right: 50px; }
+.signin-password button {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-ink);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.signin-password button:hover { background: var(--sage); color: var(--green); }
+.signin-password svg { width: 19px; height: 19px; }
+.signin-error { margin: -4px 0 0; padding: 11px 13px; border-radius: 7px; background: rgba(156, 60, 52, 0.09); color: var(--destructive); font-size: 0.78rem; }
+.signin-submit {
+  min-height: 52px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--primary-foreground);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+.signin-submit:hover:not(:disabled) { background: var(--deep-green); transform: translateY(-1px); }
+.signin-submit:disabled { cursor: wait; opacity: 0.68; }
+.signin-back { display: inline-flex; margin-top: 24px; color: var(--muted-ink); font-size: 0.75rem; font-weight: 700; }
+.signin-back:hover { color: var(--green); }
+
+.not-found-page { min-height: 68vh; display: grid; place-items: center; padding-block: 100px; background: var(--page-bg); color: var(--ink); }
+.not-found-inner { max-width: 760px; text-align: center; }
+.not-found-code { margin: 0 0 12px; color: var(--clay-text); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.18em; }
+.not-found-page h1 { margin: 0 0 22px; color: var(--green); font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 6rem); line-height: 1; letter-spacing: -0.04em; }
+.not-found-page p:not(.not-found-code) { max-width: 580px; margin: 0 auto 30px; color: var(--muted-ink); }
+
 .site-shell { min-height: 100vh; overflow: clip; background: var(--page-bg); }
 .site-container { width: min(100% - 48px, 1280px); margin-inline: auto; }
 .site-shell h1, .site-shell h2, .site-shell h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.12; letter-spacing: -0.035em; }
@@ -242,8 +347,11 @@ img { max-width: 100%; }
 .breadcrumbs span[aria-current="page"] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .product-detail { padding-bottom: clamp(90px, 10vw, 150px); background: var(--surface); }
 .product-detail-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr); gap: clamp(55px, 8vw, 120px); align-items: start; }
+.product-detail-gallery { display: grid; grid-column: 1; gap: 12px; margin-top: calc(-1 * clamp(43px, 7vw, 108px)); }
 .product-detail-media { position: relative; aspect-ratio: 1 / 1.06; overflow: hidden; background: var(--sage); }
 .product-detail-media img { object-fit: cover; }
+.product-detail-gallery-item { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--sage); }
+.product-detail-gallery-item img { object-fit: cover; }
 .product-detail-copy { padding-top: 38px; }
 .product-detail-copy h1 { margin-bottom: 20px; font-size: clamp(3rem, 5vw, 5.4rem); color: var(--green); }
 .product-summary { font-family: var(--font-heading); font-size: 1.35rem; color: var(--clay); }
@@ -366,6 +474,7 @@ img { max-width: 100%; }
   .quality-image { aspect-ratio: 16 / 10; }
   .product-detail-grid { grid-template-columns: 1fr; gap: 20px; }
   .product-detail-copy { padding-top: 25px; }
+  .product-detail-gallery { margin-top: 0; }
   .journal-card-featured { grid-template-columns: 1fr; gap: 20px; }
   .article-body-grid { grid-template-columns: 1fr; gap: 30px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -373,6 +482,12 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 640px) {
+  .signin-page { padding: 16px 14px; }
+  .signin-card { padding: 27px 22px; border-radius: 14px; }
+  .signin-brand { margin-bottom: 30px; }
+  .signin-brand-mark { width: 52px; height: 52px; }
+  .signin-heading { grid-template-columns: 40px 1fr; gap: 12px; }
+  .signin-icon { width: 40px; height: 40px; }
   .site-container { width: min(100% - 28px, 1280px); }
   .brand-mark { width: 46px; height: 46px; }
   .brand-copy strong { font-size: 0.98rem; }

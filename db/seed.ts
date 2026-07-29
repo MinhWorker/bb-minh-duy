@@ -12,6 +12,21 @@ import {
 
 const productDrafts = [
   {
+    slug: "che-bon-bon",
+    name: "Chè bồn bồn",
+    image: "/media/product-che-bon-bon.webp",
+    imageAlt: "Các chén chè bồn bồn màu xanh và tím trên bàn gỗ",
+    gallery: [
+      {
+        url: "/media/product-che-bon-bon-hai-loai.webp",
+        alt: "Chè bồn bồn hai màu xanh và tím",
+      },
+    ],
+    description: "Món chè thanh ngọt với hai sắc xanh, tím; chờ chủ HTX xác nhận quy cách và URL gian hàng trước khi xuất bản.",
+    unit: "Theo phần; liên hệ để biết quy cách đang có",
+    sortOrder: 5,
+  },
+  {
     slug: "bon-bon-tuoi",
     name: "Bồn bồn tươi",
     image: "/media/hero-bon-bon.webp",
@@ -56,6 +71,8 @@ const media = [
   ["D:\\Hợp tác xã\\Thư viện\\AI\\dua-mem-dua-zip-ben-nhau.jpeg", "/media/product-dua-truyen-thong.webp", "approved-ai", "Bao bì dưa bồn bồn truyền thống đã duyệt", "product"],
   ["D:\\Hợp tác xã\\Thư viện\\AI\\bon-bon-chua-ngot-trung-bay-keo-tui.jpeg", "/media/product-dua-chua-ngot.webp", "approved-ai", "Dòng dưa bồn bồn chua ngọt đã duyệt", "product"],
   ["D:\\Hợp tác xã\\Thư viện\\AI\\kim-chi-bon-bon-banner.png", "/media/product-kim-chi.webp", "approved-ai", "Dòng bồn bồn kim chi đã duyệt", "product"],
+  ["D:\\Hợp tác xã\\Thư viện\\AI\\che-bon-bon-7-chen-luc-giac.jpeg", "/media/product-che-bon-bon.webp", "approved-ai", "Các chén chè bồn bồn màu xanh và tím trên bàn gỗ", "product"],
+  ["D:\\Hợp tác xã\\Thư viện\\AI\\che-bon-bon-hai-loai.jpeg", "/media/product-che-bon-bon-hai-loai.webp", "approved-ai", "Chè bồn bồn hai màu xanh và tím", "product gallery"],
   ["D:\\Hợp tác xã\\Thư viện\\pictures\\z7608183407084_1b867b0beaec5678eea0cbff4383d2c7.jpg", "/media/recipe-goi-bon-bon.webp", "real", "Chuẩn bị món ăn từ bồn bồn", "recipe"],
   ["D:\\Hợp tác xã\\Thư viện\\AI\\ca-kho-bon-bon-dua-rau-mam.jpeg", "/media/recipe-bua-com.webp", "approved-ai", "Bữa cơm có món từ bồn bồn", "recipe"],
   ["D:\\Hợp tác xã\\Thư viện\\pictures\\z7793240860619_5800bd40bf52107f1fdf8e7d323c1e31.jpg", "/media/activity-fair.webp", "real", "Hoạt động giới thiệu sản phẩm", "news"],
@@ -86,6 +103,7 @@ async function seed() {
   const [category] = await db.select({ id: categories.id }).from(categories).where(eq(categories.name, "Sản phẩm từ bồn bồn")).limit(1);
 
   for (const draft of productDrafts) {
+    const gallery = "gallery" in draft ? [...draft.gallery] : [];
     await db.insert(products).values({
       ...draft,
       categoryId: category?.id,
@@ -94,12 +112,12 @@ async function seed() {
       price: null,
       marketplaceUrl: null,
       specifications: [],
-      gallery: [],
+      gallery,
       storageInstructions: "Chờ xác nhận theo nhãn hiện hành.",
       usageInstructions: "Chờ xác nhận theo nhãn hiện hành.",
     }).onConflictDoUpdate({
       target: products.slug,
-      set: { ...draft, categoryId: category?.id, status: "draft", price: null, marketplaceUrl: null, updatedAt: new Date() },
+      set: { ...draft, gallery, categoryId: category?.id, status: "draft", price: null, marketplaceUrl: null, updatedAt: new Date() },
     });
   }
 

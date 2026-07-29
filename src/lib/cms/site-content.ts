@@ -24,6 +24,7 @@ function productFromCms(product: PublicProduct): Product {
     description: product.description,
     image: product.image,
     imageAlt: product.imageAlt,
+    gallery: product.gallery,
     formats: product.specifications.length ? product.specifications : [product.unit],
     storage: product.storageInstructions,
     usage: product.usageInstructions,

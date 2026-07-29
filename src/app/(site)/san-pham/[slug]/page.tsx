@@ -50,6 +50,15 @@ export default async function ProductDetailPage({ params }: Props) {
               )}
               <p className="product-note">Vui lòng xem hướng dẫn bảo quản và sử dụng trên bao bì sản phẩm.</p>
             </div>
+            {product.gallery?.length ? (
+              <div className="product-detail-gallery">
+                {product.gallery.map((image) => (
+                  <div className="product-detail-gallery-item" key={image.url}>
+                    <Image src={image.url} alt={image.alt} fill sizes="(max-width: 900px) 100vw, 52vw" />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </section>

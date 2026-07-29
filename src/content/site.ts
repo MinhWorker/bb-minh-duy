@@ -5,6 +5,7 @@ export type Product = {
   description: string;
   image: string;
   imageAlt: string;
+  gallery?: Array<{ url: string; alt: string }>;
   formats: string[];
   storage: string;
   usage: string;
@@ -40,6 +41,24 @@ export const site = {
 } as const;
 
 export const products: Product[] = [
+  {
+    slug: "che-bon-bon",
+    name: "Chè bồn bồn",
+    summary: "Món chè thanh ngọt với hai sắc xanh, tím bắt mắt.",
+    description:
+      "Bồn bồn được biến tấu thành món chè dân dã, mang đến một cách thưởng thức mới từ nguyên liệu quen thuộc của Cà Mau.",
+    image: "/media/product-che-bon-bon.webp",
+    imageAlt: "Các chén chè bồn bồn màu xanh và tím trên bàn gỗ",
+    gallery: [
+      {
+        url: "/media/product-che-bon-bon-hai-loai.webp",
+        alt: "Chè bồn bồn hai màu xanh và tím",
+      },
+    ],
+    formats: ["Theo phần", "Liên hệ để biết quy cách đang có"],
+    storage: "Bảo quản theo hướng dẫn của Minh Duy tại thời điểm nhận sản phẩm.",
+    usage: "Dùng như món tráng miệng; có thể thưởng thức mát tùy khẩu vị.",
+  },
   {
     slug: "dua-bon-bon-chua-ngot",
     name: "Dưa bồn bồn chua ngọt",
