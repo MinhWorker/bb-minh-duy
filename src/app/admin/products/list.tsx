@@ -1,4 +1,4 @@
-import { Datagrid, DateField, ImageField, List, NumberField, ReferenceField, SearchInput, TextField, useRecordContext, useTranslate } from "react-admin";
+import { Datagrid, DateField, ImageField, List, ReferenceField, SearchInput, TextField, useRecordContext, useTranslate } from "react-admin";
 
 const productSearch = [
   <SearchInput
@@ -12,14 +12,13 @@ const productSearch = [
 export const ProductsList = () => {
   const translate = useTranslate();
   const CertificationsField = () => {
-    const record = useRecordContext();
+    const record = useRecordContext<{ certifications?: Array<{ certificationId: number; certification: { name: string } }> }>();
     if (!record || !record.certifications || record.certifications.length === 0) {
       return null;
     }
     return (
       <div>
-        {/* eslint-disable  @typescript-eslint/no-explicit-any */}
-        {record.certifications.map((cert: any) => (
+        {record.certifications.map((cert) => (
           <div key={cert.certificationId}>
             <a key={cert.certificationId}
               href={`admin#/certifications/${cert.certificationId}`}
@@ -41,7 +40,8 @@ export const ProductsList = () => {
       <Datagrid rowClick="edit">
         <TextField source="id" label={translate("resources.products.id")} sortable={false} />
         <TextField source="name" label={translate("resources.products.name")} sortable={false} />
-        <NumberField source="price" options={{ style: "currency", currency: "VND" }} label={translate("resources.products.price")} sortable={false} />
+        <TextField source="status" label="Xuất bản" sortable={false} />
+        <TextField source="commercialStatus" label="Thương mại" sortable={false} />
         <TextField source="unit" label={translate("resources.products.unit")} sortable={false} />
         <ImageField source="image" title="name" label={translate("resources.products.image")} sortable={false} />
         <ReferenceField source="categoryId" reference="categories" link="show" label={translate("resources.products.category")} sortable={false} >

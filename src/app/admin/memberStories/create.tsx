@@ -1,18 +1,3 @@
-import { Create, SimpleForm, TextInput, NumberInput, required } from "react-admin";
-
-export const MemberStoriesCreate = () => (
-  <Create>
-    <SimpleForm>
-      <TextInput source="nameVi" label="Name (VI)" validate={required()} fullWidth />
-      <TextInput source="nameEn" label="Name (EN)" fullWidth />
-      <TextInput source="roleVi" label="Role (VI)" fullWidth />
-      <TextInput source="roleEn" label="Role (EN)" fullWidth />
-      <TextInput source="quoteVi" label="Quote (VI)" multiline validate={required()} fullWidth />
-      <TextInput source="quoteEn" label="Quote (EN)" multiline fullWidth />
-      <TextInput source="contentVi" label="Content (VI)" multiline fullWidth />
-      <TextInput source="contentEn" label="Content (EN)" multiline fullWidth />
-      <TextInput source="image" label="Image ID (Cloudinary)" validate={required()} fullWidth />
-      <NumberInput source="order" label="Order" defaultValue={0} />
-    </SimpleForm>
-  </Create>
-);
+import { Create, NumberInput, SelectInput, SimpleForm, TextInput, required } from "react-admin";
+export const StoryFields = () => <><TextInput source="nameVi" label="Tiêu đề/tên" validate={required()} fullWidth /><TextInput source="slug" label="Slug" fullWidth /><TextInput source="roleVi" label="Vai trò" fullWidth /><TextInput source="quoteVi" label="Trích dẫn (chỉ dùng khi đã đồng ý)" multiline validate={required()} fullWidth /><TextInput source="contentVi" label="Nội dung" multiline fullWidth /><TextInput source="image" label="Ảnh" validate={required()} fullWidth /><TextInput source="imageAlt" label="Alt text" fullWidth /><SelectInput source="status" label="Trạng thái" defaultValue="draft" choices={[{ id: "draft", name: "Bản nháp" }, { id: "published", name: "Đã xuất bản" }]} /><NumberInput source="sortOrder" label="Thứ tự" defaultValue={0} /><TextInput source="seoTitle" label="SEO title" fullWidth /><TextInput source="seoDescription" label="SEO description" multiline fullWidth /></>;
+export const MemberStoriesCreate = () => <Create><SimpleForm><StoryFields /></SimpleForm></Create>;

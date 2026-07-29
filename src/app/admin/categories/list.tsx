@@ -16,6 +16,7 @@ export const CategoriesList = () => {
       <Datagrid rowClick="edit">
         <TextField source="id" label={translate("resources.categories.id")} sortable={false} />
         <TextField source="name" label={translate("resources.categories.name")} sortable={false} />
+        <TextField source="status" label="Trạng thái" sortable={false} />
       </Datagrid>
     </List >
   )

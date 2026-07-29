@@ -1,14 +1,3 @@
-import { Create, required, SimpleForm, TextInput, useTranslate } from "react-admin";
-import BackButton from "../../../../components/BackButton";
-
-export const CategoriesCreate = () => {
-  const translate = useTranslate();
-  return (
-    <Create>
-      <SimpleForm>
-        <TextInput source="name" validate={[required()]} label={translate("resources.categories.name")} />
-        <BackButton url="categories" />
-      </SimpleForm>
-    </Create>
-  )
-}
+import { Create, NumberInput, SelectInput, SimpleForm, TextInput, required } from "react-admin";
+export const CategoryFields = () => <><TextInput source="name" label="Tên danh mục" validate={required()} /><TextInput source="slug" label="Slug" /><SelectInput source="status" label="Trạng thái" defaultValue="draft" choices={[{ id: "draft", name: "Bản nháp" }, { id: "published", name: "Đã xuất bản" }]} /><NumberInput source="sortOrder" label="Thứ tự" defaultValue={0} /><TextInput source="seoTitle" label="SEO title" fullWidth /><TextInput source="seoDescription" label="SEO description" multiline fullWidth /></>;
+export const CategoriesCreate = () => <Create><SimpleForm><CategoryFields /></SimpleForm></Create>;

@@ -8,6 +8,7 @@ export const MemberStoriesList = () => (
       <TextField source="roleVi" label="Role (VI)" />
       <ImageField source="image" title="nameVi" />
       <NumberField source="order" />
+      <TextField source="status" label="Trạng thái" />
       <DateField source="createdAt" />
     </Datagrid>
   </List>

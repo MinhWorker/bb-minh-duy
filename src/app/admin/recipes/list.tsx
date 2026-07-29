@@ -5,10 +5,10 @@ export const RecipesList = () => (
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="titleVi" label="Title (VI)" />
-      <TextField source="titleEn" label="Title (EN)" />
+      <TextField source="status" label="Trạng thái" />
       <ImageField source="image" title="titleVi" />
       <TextField source="difficulty" />
-      <TextField source="prepTime" />
+      <TextField source="slug" />
       <DateField source="createdAt" />
     </Datagrid>
   </List>

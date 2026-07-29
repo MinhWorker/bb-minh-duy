@@ -12,7 +12,16 @@ export async function middleware(req: NextRequest) {
     '/admin',
     "/api/certifications",
     "/api/categories",
-    "/api/products"];
+    "/api/products",
+    "/api/recipes",
+    "/api/memberStories",
+    "/api/metrics",
+    "/api/siteSettings",
+    "/api/sitePages",
+    "/api/news",
+    "/api/claimRegistry",
+    "/api/mediaManifest",
+  ];
 
   const isProtectedAdminPath = protectedAdminPaths.some(path => pathname.startsWith(path));
 
@@ -55,6 +64,14 @@ export const config = {
     '/api/categories/:path*', // Protects all paths under /api/categories
     '/api/certifications/:path*', // Protects all paths under /api/categories
     '/api/products/:path*', // Protects all paths under /api/categories
-    '/api/auth/signout'
+    '/api/recipes/:path*',
+    '/api/memberStories/:path*',
+    '/api/metrics/:path*',
+    '/api/siteSettings/:path*',
+    '/api/sitePages/:path*',
+    '/api/news/:path*',
+    '/api/claimRegistry/:path*',
+    '/api/mediaManifest/:path*',
+    '/api/signout'
   ],
 };

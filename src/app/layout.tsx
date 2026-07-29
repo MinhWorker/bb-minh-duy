@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Inter, Gwendolyn } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "vietnamese"],
-});
-
-const gwendolyn = Gwendolyn({
-  variable: "--font-gwendolyn",
-  weight: "400",
-  subsets: ["vietnamese"],
-})
-
 export const metadata: Metadata = {
-  title: "HTX Bồn Bồn Minh Duy",
-  description: "Khám phá các sản phẩm nông nghiệp địa phương chất lượng cao từ hợp tác xã BB Minh Duy. Hỗ trợ nông dân và tìm kiếm trực tuyến dễ dàng.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  title: {
+    default: "HTX Bồn Bồn Minh Duy · Cà Mau",
+    template: "%s · HTX Bồn Bồn Minh Duy",
+  },
+  description: "Hợp tác xã tại Hưng Mỹ, Cà Mau, gắn với vùng nguyên liệu và các sản phẩm chế biến từ cây bồn bồn.",
+  applicationName: "HTX Bồn Bồn Minh Duy",
+  keywords: ["bồn bồn Cà Mau", "HTX Minh Duy", "dưa bồn bồn", "đặc sản Cà Mau"],
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    siteName: "HTX Bồn Bồn Minh Duy",
+    title: "HTX Bồn Bồn Minh Duy · Cà Mau",
+    description: "Sản phẩm và câu chuyện từ cây bồn bồn Cà Mau.",
+    images: [{ url: "/media/hero-bon-bon.webp", width: 1452, height: 1083, alt: "Bồn bồn tươi trong rổ tre - HTX Bồn Bồn Minh Duy" }],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -24,12 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
-      <body
-        className={`${inter.variable} ${gwendolyn.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="vi" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

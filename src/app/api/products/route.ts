@@ -1,137 +1,35 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { count, desc, ilike } from 'drizzle-orm'; // Used for `where` clause if needed
-import db from '../../../../db/drizzle'; // Adjust path as per your project structure
-import { products, productsToCertifications } from '../../../../db/schema'; // Adjust path as per your project structure
+import { count, desc, eq, ilike } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
+import db from "../../../../db/drizzle";
+import { products, productsToCertifications } from "../../../../db/schema";
+import { apiError, getSearchQuery, listResponse, parseListRange, requireAdmin } from "@/lib/cms/api";
+import { parseProductPayload, readCertificationIds } from "@/lib/cms/product-validation";
+import { readObject } from "@/lib/cms/validation";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  const unauthorized = await requireAdmin(req); if (unauthorized) return unauthorized;
   try {
-    const { searchParams } = req.nextUrl;
-
-    // --- Determine 'Get All' Mode ---
-    const getAllRecords = searchParams.toString() === '' || (searchParams.get('_limit') === 'Infinity');
-
-    let start = 0;
-    let end = 9;
-    let limit: number | undefined;
-    let offset = 0;
-
-    if (!getAllRecords) {
-      const rangeParam = searchParams.get('range');
-      if (rangeParam) {
-        try {
-          const parsedRange = JSON.parse(rangeParam);
-          if (Array.isArray(parsedRange) && parsedRange.length === 2) {
-            start = parseInt(parsedRange[0], 10);
-            end = parseInt(parsedRange[1], 10);
-          }
-        } catch (e) {
-          console.error('Failed to parse range parameter:', e);
-        }
-      }
-      offset = start;
-      limit = end - start + 1;
-    }
-
-    // --- Filter/Search Support ---
-    const filterParam = searchParams.get("filter");
-    let searchQuery = "";
-
-    if (filterParam) {
-      try {
-        const parsedFilter = JSON.parse(filterParam);
-        if (typeof parsedFilter.q === "string") {
-          searchQuery = parsedFilter.q.trim();
-        }
-      } catch (e) {
-        console.error("Failed to parse filter parameter:", e);
-      }
-    }
-
-    const whereClause = searchQuery
-      ? ilike(products.name, `%${searchQuery}%`)
-      : undefined;
-
-    // --- Total Count (with filter if exists) ---
-    const totalCountResult = await db
-      .select({ count: count() })
-      .from(products)
-      .where(whereClause);
-    const totalCount = totalCountResult[0].count;
-
-    // --- Product Fetch ---
-    const fetchedProducts = await db.query.products.findMany({
-      where: whereClause,
-      limit,
-      offset,
-      orderBy: [desc(products.id)],
-      with: {
-        certifications: {
-          with: {
-            certification: true,
-          },
-        },
-      },
+    const range = parseListRange(req); const query = getSearchQuery(req);
+    const where = query ? ilike(products.name, `%${query}%`) : undefined;
+    const [{ value }] = await db.select({ value: count() }).from(products).where(where);
+    const records = await db.query.products.findMany({
+      where, limit: range.limit, offset: range.offset, orderBy: [desc(products.id)],
+      with: { certifications: { with: { certification: true } } },
     });
-
-    // --- Response with Headers ---
-    const response = NextResponse.json(fetchedProducts, { status: 200 });
-    response.headers.set("X-Total-Count", totalCount.toString());
-
-    const contentRangeStart = getAllRecords ? 0 : start;
-    const contentRangeEnd = getAllRecords ? (totalCount > 0 ? totalCount - 1 : 0) : end;
-    response.headers.set("Content-Range", `certifications ${contentRangeStart}-${contentRangeEnd}/${totalCount}`);
-
-    return response;
-  } catch (error) {
-    console.error("API Error: Failed to retrieve certifications.", error);
-    return NextResponse.json({ message: "Failed to retrieve certifications." }, { status: 500 });
-  }
+    return listResponse("products", records, value, range);
+  } catch (error) { return apiError(error, "Failed to list products"); }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const unauthorized = await requireAdmin(req); if (unauthorized) return unauthorized;
   try {
-    const body = await req.json();
-    const {
-      name,
-      price,
-      image,
-      description,
-      categoryId,
-      certificationIds = [],
-      unit,
-      ocopLevel
-    } = body;
-
-    if (!name || !price || !image || !categoryId) {
-      return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
-    }
-
-    const [newProduct] = await db
-      .insert(products)
-      .values({
-        unit,
-        name,
-        price,
-        image,
-        description,
-        categoryId,
-        ocopLevel
-      })
-      .returning();
-
-    // Insert certifications into join table
-    if (certificationIds.length > 0) {
-      await db.insert(productsToCertifications).values(
-        certificationIds.map((id: string) => ({
-          productId: newProduct.id,
-          certificationId: id,
-        }))
-      );
-    }
-
-    return NextResponse.json(newProduct, { status: 201 });
-  } catch (err) {
-    console.error("API Error: Failed to create product.", err);
-    return NextResponse.json({ message: "Failed to create product." }, { status: 500 });
-  }
+    const body = readObject(await req.json());
+    const values = parseProductPayload(body, false);
+    const duplicate = await db.query.products.findFirst({ where: eq(products.slug, values.slug) });
+    if (duplicate) return NextResponse.json({ message: "Slug sản phẩm đã tồn tại." }, { status: 409 });
+    const [record] = await db.insert(products).values(values).returning();
+    const certificationIds = readCertificationIds(body.certificationIds ?? body.certifications);
+    if (certificationIds.length) await db.insert(productsToCertifications).values(certificationIds.map((certificationId) => ({ productId: record.id, certificationId })));
+    return NextResponse.json(record, { status: 201 });
+  } catch (error) { return apiError(error, "Failed to create product"); }
 }

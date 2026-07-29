@@ -1,18 +1,4 @@
-import { Create, SimpleForm, TextInput, required } from "react-admin";
-
-export const RecipesCreate = () => (
-  <Create>
-    <SimpleForm>
-      <TextInput source="titleVi" label="Title (VI)" validate={required()} fullWidth />
-      <TextInput source="titleEn" label="Title (EN)" fullWidth />
-      <TextInput source="descriptionVi" label="Description (VI)" multiline fullWidth />
-      <TextInput source="descriptionEn" label="Description (EN)" multiline fullWidth />
-      <TextInput source="image" label="Image ID (Cloudinary)" validate={required()} fullWidth />
-      <TextInput source="videoUrl" label="Video URL" fullWidth />
-      <TextInput source="difficulty" label="Difficulty" fullWidth />
-      <TextInput source="prepTime" label="Prep Time" fullWidth />
-      <TextInput source="contentVi" label="Content (VI)" multiline validate={required()} fullWidth />
-      <TextInput source="contentEn" label="Content (EN)" multiline fullWidth />
-    </SimpleForm>
-  </Create>
-);
+import { Create, NumberInput, SelectInput, SimpleForm, TextInput, required } from "react-admin";
+import { formatJsonField } from "../json-field";
+export const RecipeFields = () => <><TextInput source="titleVi" label="Tiêu đề" validate={required()} fullWidth /><TextInput source="slug" label="Slug" fullWidth /><TextInput source="descriptionVi" label="Mô tả" multiline fullWidth /><TextInput source="image" label="Ảnh" validate={required()} fullWidth /><TextInput source="imageAlt" label="Alt text" fullWidth /><TextInput source="difficulty" label="Độ khó" /><TextInput source="prepTime" label="Thời gian chuẩn bị" /><TextInput source="cookTime" label="Thời gian nấu" /><TextInput source="servings" label="Khẩu phần" /><TextInput source="ingredients" label="Nguyên liệu (JSON array)" multiline fullWidth format={formatJsonField} /><TextInput source="steps" label="Các bước (JSON array)" multiline fullWidth format={formatJsonField} /><TextInput source="contentVi" label="Nội dung bổ sung" multiline validate={required()} fullWidth /><SelectInput source="status" label="Trạng thái" defaultValue="draft" choices={[{ id: "draft", name: "Bản nháp" }, { id: "published", name: "Đã xuất bản" }]} /><NumberInput source="sortOrder" label="Thứ tự" defaultValue={0} /><TextInput source="seoTitle" label="SEO title" fullWidth /><TextInput source="seoDescription" label="SEO description" multiline fullWidth /></>;
+export const RecipesCreate = () => <Create><SimpleForm><RecipeFields /></SimpleForm></Create>;

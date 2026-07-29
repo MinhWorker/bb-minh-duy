@@ -1,77 +1,19 @@
-import { AutocompleteArrayInput, Edit, ImageField, ImageInput, NumberInput, ReferenceArrayInput, ReferenceInput, required, SelectInput, SimpleForm, TextInput, useNotify, useRedirect, useTranslate } from "react-admin"
+import { Edit, ImageField, ImageInput, SimpleForm, useNotify, useRedirect } from "react-admin";
 import { uploadToCloudinary } from "../../../../lib/upload";
-import BackButton from "../../../../components/BackButton";
-
-{/* eslint-disable  @typescript-eslint/no-explicit-any */ }
+import { ProductFields } from "./create";
 export const ProductsEdit = () => {
-  const notify = useNotify();
-  const redirect = useRedirect();
-  const translate = useTranslate();
-
-  const handleSubmit = async (values: any) => {
+  const notify = useNotify(); const redirect = useRedirect();
+  const submit = async (values: Record<string, unknown>) => {
     try {
-      const file = values.newImage?.rawFile;
-      let imageUrl = values.image;
-
-      if (file) {
-        const { secure_url } = await uploadToCloudinary(file);
-        imageUrl = secure_url;
-      }
-
-      const res = await fetch(`/api/products/${values.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: values.name,
-          description: values.description,
-          price: values.price,
-          unit: values.unit,
-          image: imageUrl,
-          categoryId: values.categoryId,
-          certificationIds: values.certifications,
-        })
-      })
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Cập nhật thất bại");
-      }
-
-      notify("Cập nhật thành công");
-      redirect("/products");
-    } catch (error: any) {
-      notify(error.message, { type: "error" });
-    }
-  }
-
-  return (
-    <Edit>
-      <ImageField source="image" title="Product image" />
-      <SimpleForm onSubmit={handleSubmit}>
-        <TextInput source="name" label={translate("resources.products.name")} fullWidth required />
-        <TextInput source="description" label={translate("resources.products.description")} fullWidth required />
-        <NumberInput source="price" label={translate("resources.products.price")} required />
-        <TextInput source="unit" label={translate("resources.products.unit")} required />
-        <ReferenceInput source="categoryId" reference="categories">
-          <SelectInput optionText="name" required label={translate("resources.products.category")} />
-        </ReferenceInput>
-        <ReferenceArrayInput
-          source="certifications"
-          reference="certifications"
-        >
-          <AutocompleteArrayInput optionText="name" validate={[required()]} label={translate("resources.products.certifications")} />
-        </ReferenceArrayInput>
-        <ImageInput
-          source="newImage"
-          label={translate("resources.products.newImage")}
-          accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}
-          maxSize={10 * 1024 * 1024}
-          fullWidth
-        >
-          <ImageField source="src" title="Uploaded image" />
-        </ImageInput>
-        <BackButton url="products" />
-      </SimpleForm>
-    </Edit>
-  )
-}
+      if (typeof values.id !== "number" || typeof values.image !== "string") throw new Error("Dữ liệu sản phẩm không hợp lệ.");
+      let image = values.image;
+      const newImage = values.newImage && typeof values.newImage === "object" ? values.newImage as { rawFile?: File } : undefined;
+      const file = newImage?.rawFile;
+      if (file) image = (await uploadToCloudinary(file)).secure_url;
+      const response = await fetch(`/api/products/${values.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...values, image, certificationIds: values.certifications }) });
+      if (!response.ok) { const body = await response.json() as { message?: string }; throw new Error(body.message ?? "Cập nhật thất bại."); }
+      notify("Cập nhật thành công"); redirect("/products");
+    } catch (error: unknown) { notify(error instanceof Error ? error.message : "Cập nhật thất bại.", { type: "error" }); }
+  };
+  return <Edit><SimpleForm onSubmit={submit}><ImageField source="image" /><ProductFields /><ImageInput source="newImage" label="Thay ảnh chính" accept={{ "image/*": [".png", ".jpg", ".jpeg", ".webp"] }} maxSize={10 * 1024 * 1024}><ImageField source="src" /></ImageInput></SimpleForm></Edit>;
+};

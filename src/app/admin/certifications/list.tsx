@@ -18,6 +18,7 @@ export const CertificationsList = () => {
         <TextField source="id" label={translate("resources.certifications.id")} sortable={false} />
         <TextField source="name" label={translate("resources.certifications.name")} sortable={false} />
         <ImageField source="image" label={translate("resources.certifications.image")} sortable={false} />
+        <TextField source="status" label="Trạng thái" sortable={false} />
       </Datagrid>
     </List>
   )

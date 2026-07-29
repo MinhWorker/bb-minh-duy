@@ -23,6 +23,11 @@ import { MetricsEdit } from "./metrics/edit";
 import { AdminLayout } from "../../../components/AdminLayout";
 import { Shapes, ShieldCheck, Store, ChefHat, Users, LineChart } from "lucide-react";
 import { i18nProvider } from "@/i18nProvider";
+import {
+  ClaimRegistryCreate, ClaimRegistryEdit, ClaimRegistryList, MediaManifestCreate, MediaManifestEdit,
+  MediaManifestList, NewsCreate, NewsEdit, NewsList, SitePagesCreate, SitePagesEdit, SitePagesList,
+  SiteSettingsCreate, SiteSettingsEdit, SiteSettingsList,
+} from "./cms-resources";
 
 const dataProvider = simpleRestProvider("/api");
 
@@ -40,6 +45,11 @@ const App = () => {
         recordRepresentation="name"
         icon={Store}
       />
+      <Resource name="siteSettings" list={SiteSettingsList} create={SiteSettingsCreate} edit={SiteSettingsEdit} recordRepresentation="cooperativeName" />
+      <Resource name="sitePages" list={SitePagesList} create={SitePagesCreate} edit={SitePagesEdit} recordRepresentation="title" />
+      <Resource name="news" list={NewsList} create={NewsCreate} edit={NewsEdit} recordRepresentation="title" />
+      <Resource name="claimRegistry" list={ClaimRegistryList} create={ClaimRegistryCreate} edit={ClaimRegistryEdit} recordRepresentation="claim" />
+      <Resource name="mediaManifest" list={MediaManifestList} create={MediaManifestCreate} edit={MediaManifestEdit} recordRepresentation="altText" />
 
       <Resource
         name="categories"
