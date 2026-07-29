@@ -44,7 +44,7 @@ export default async function HomePage() {
               <h2>Những hương vị từ cây bồn bồn</h2>
             </div>
             <div>
-              <p>Danh mục giới thiệu được trình bày không kèm giá; quy cách và tình trạng hàng được xác nhận theo từng đợt.</p>
+              <p>Khám phá các sản phẩm từ bồn bồn Cà Mau và liên hệ Minh Duy để biết sản phẩm đang có.</p>
               <Link className="text-link" href="/san-pham">Xem tất cả sản phẩm <ArrowRightIcon /></Link>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default async function HomePage() {
                 <ProductCard key={product.slug} product={product} priority={index === 0} />
               ))}
             </div>
-          ) : <div className="empty-state"><p>Danh mục sẽ được mở sau khi thông tin thương mại và đường dẫn gian hàng được xác nhận.</p></div>}
+          ) : <div className="empty-state"><p>Hiện chưa có sản phẩm để hiển thị. Vui lòng liên hệ Minh Duy để được tư vấn.</p></div>}
         </div>
       </section>
 
@@ -64,7 +64,7 @@ export default async function HomePage() {
             <p className="section-index">02 — Từ vùng nguyên liệu</p>
             <h2>Một hành trình được gìn giữ qua từng công đoạn</h2>
             <p>
-              HTX gắn với vùng nguyên liệu tại Cái Nước, Trần Văn Thời và khu vực lân cận ở Cà Mau. Mỗi đợt nguyên liệu được tiếp nhận, sơ chế và đưa vào dòng chế biến phù hợp.
+              HTX gắn với vùng nguyên liệu tại Cái Nước, Trần Văn Thời và khu vực lân cận ở Cà Mau. Bồn bồn được chọn lựa, làm sạch và chế biến phù hợp với từng sản phẩm.
             </p>
             <Link className="text-link" href="/gioi-thieu">Xem cách HTX làm việc <ArrowRightIcon /></Link>
           </div>
@@ -77,12 +77,12 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-        <div className="site-container process-rail" aria-label="Các điểm chính trong quy trình nội bộ">
+        <div className="site-container process-rail" aria-label="Hành trình làm nên sản phẩm">
           <div><Sprout aria-hidden="true" /><strong>Vùng nguyên liệu</strong><span>Gắn với điều kiện tự nhiên Cà Mau</span></div>
           <ArrowRight aria-hidden="true" className="process-arrow" />
-          <div><ScanLine aria-hidden="true" /><strong>Kiểm tra & sơ chế</strong><span>Ghi nhận và phân loại theo lô</span></div>
+          <div><ScanLine aria-hidden="true" /><strong>Kiểm tra & sơ chế</strong><span>Chọn lọc và sơ chế cẩn thận</span></div>
           <ArrowRight aria-hidden="true" className="process-arrow" />
-          <div><Leaf aria-hidden="true" /><strong>Chế biến & đóng gói</strong><span>Theo từng dòng sản phẩm</span></div>
+          <div><Leaf aria-hidden="true" /><strong>Chế biến & đóng gói</strong><span>Phù hợp với từng sản phẩm</span></div>
         </div>
       </section>
 
@@ -99,14 +99,14 @@ export default async function HomePage() {
             <div className="journal-grid">
               {journalEntries.slice(0, 3).map((entry) => <JournalCard key={`${entry.kind}-${entry.slug}`} entry={entry} />)}
             </div>
-          ) : <div className="empty-state"><p>Nội dung đang chờ duyệt trong CMS.</p></div>}
+          ) : <div className="empty-state"><p>Chưa có bài viết mới. Mời bạn quay lại sau.</p></div>}
         </div>
       </section>
 
       <section className="contact-cta">
         <div className="site-container contact-cta-inner">
-          <p>Muốn biết đợt hàng hiện tại?</p>
-          <h2>Trao đổi trực tiếp cùng HTX Minh Duy.</h2>
+          <p>Bạn muốn biết sản phẩm nào đang có?</p>
+          <h2>Liên hệ Minh Duy để được tư vấn.</h2>
           <Link className="button button-light" href="/lien-he">Xem thông tin liên hệ <ArrowRightIcon className="button-icon" /></Link>
         </div>
       </section>

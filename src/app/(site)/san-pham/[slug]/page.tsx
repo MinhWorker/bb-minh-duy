@@ -37,7 +37,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <p className="product-summary">{product.summary}</p>
               <p>{product.description}</p>
               <dl className="product-facts">
-                <div><dt>Quy cách giới thiệu</dt><dd>{product.formats.join(" · ")}</dd></div>
+                <div><dt>Cách đóng gói</dt><dd>{product.formats.join(" · ")}</dd></div>
                 <div><dt>Bảo quản</dt><dd>{product.storage}</dd></div>
                 <div><dt>Gợi ý sử dụng</dt><dd>{product.usage}</dd></div>
               </dl>
@@ -46,9 +46,9 @@ export default async function ProductDetailPage({ params }: Props) {
                   Xem tại gian hàng <ArrowUpRightIcon className="button-icon" />
                 </a>
               ) : (
-                <Link className="button" href="/lien-he">Hỏi về đợt hàng hiện tại <ArrowRightIcon className="button-icon" /></Link>
+                <Link className="button" href="/lien-he">Hỏi sản phẩm đang có <ArrowRightIcon className="button-icon" /></Link>
               )}
-              <p className="product-note">Thông tin trên website không thay thế hướng dẫn trên nhãn của từng lô sản phẩm.</p>
+              <p className="product-note">Vui lòng xem hướng dẫn bảo quản và sử dụng trên bao bì sản phẩm.</p>
             </div>
           </div>
         </div>

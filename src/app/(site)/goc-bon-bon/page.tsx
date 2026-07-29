@@ -15,7 +15,7 @@ export default async function JournalPage() {
     <>
       <PageHero
         title="Góc Bồn Bồn"
-        description="Nơi chúng tôi kể chuyện vùng đất, chia sẻ gợi ý chế biến và cập nhật những hoạt động đã được kiểm tra thông tin."
+        description="Nơi Minh Duy kể chuyện vùng đất, chia sẻ món ngon và những hoạt động của HTX."
       />
       <section className="section journal-catalogue">
         <div className="site-container">
@@ -34,7 +34,7 @@ export default async function JournalPage() {
                 ))}
               </div>
             </>
-          ) : <div className="empty-state"><p>Chưa có nội dung đã duyệt để xuất bản.</p></div>}
+          ) : <div className="empty-state"><p>Chưa có bài viết mới. Mời bạn quay lại sau.</p></div>}
         </div>
       </section>
     </>

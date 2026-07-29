@@ -25,8 +25,8 @@ export function ArticleDetail({ entry }: { entry: JournalEntry }) {
         <div className="article-body">
           {entry.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           <div className="article-endnote">
-            <p>Muốn biết thêm về sản phẩm hoặc hoạt động của HTX?</p>
-            <Link className="text-link" href="/lien-he">Liên hệ Minh Duy <ArrowRightIcon /></Link>
+            <p>Khám phá thêm sản phẩm và câu chuyện của Minh Duy.</p>
+            <Link className="text-link" href="/lien-he">Trò chuyện cùng Minh Duy <ArrowRightIcon /></Link>
           </div>
         </div>
       </div>

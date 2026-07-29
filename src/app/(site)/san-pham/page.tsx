@@ -14,21 +14,21 @@ export default async function ProductsPage() {
     <>
       <PageHero
         title="Sản phẩm từ cây bồn bồn"
-        description="Mỗi dòng sản phẩm có cách dùng riêng. Website không hiển thị giá; vui lòng liên hệ HTX để xác nhận quy cách và đợt hàng hiện tại."
+        description="Mỗi sản phẩm mang một hương vị và cách thưởng thức riêng. Liên hệ Minh Duy để biết cách đóng gói, giá và sản phẩm đang có."
         image="/media/product-dua-truyen-thong.webp"
         imageAlt="Các hũ dưa bồn bồn"
       />
       <section className="section product-catalogue">
         <div className="site-container">
           <div className="catalogue-intro">
-            <p className="section-index">Danh mục giới thiệu</p>
-            <p>Thông tin thương mại được cập nhật thận trọng theo nhãn và tình trạng sản xuất thực tế.</p>
+            <p className="section-index">Sản phẩm Minh Duy</p>
+            <p>Chọn món bồn bồn phù hợp với bữa cơm và khẩu vị của gia đình bạn.</p>
           </div>
           {products.length ? (
             <div className="product-grid">
               {products.map((product) => <ProductCard key={product.slug} product={product} />)}
             </div>
-          ) : <div className="empty-state"><p>Chưa có sản phẩm đáp ứng đủ điều kiện xuất bản.</p></div>}
+          ) : <div className="empty-state"><p>Hiện chưa có sản phẩm để hiển thị. Vui lòng liên hệ Minh Duy để được tư vấn.</p></div>}
         </div>
       </section>
     </>

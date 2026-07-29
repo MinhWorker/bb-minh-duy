@@ -8,7 +8,7 @@ import { ArrowUpRightIcon, CloseIcon, MenuIcon } from "./icons";
 
 const navigation = [
   { href: "/", label: "Trang chủ" },
-  { href: "/gioi-thieu", label: "Giới thiệu & Chất lượng" },
+  { href: "/gioi-thieu", label: "Về Minh Duy" },
   { href: "/san-pham", label: "Sản phẩm" },
   { href: "/goc-bon-bon", label: "Góc Bồn Bồn" },
   { href: "/lien-he", label: "Liên hệ" },
@@ -54,7 +54,7 @@ export function SiteHeader() {
         </nav>
 
         <Link className="button button-small header-cta" href="/san-pham">
-          Gian hàng
+          Xem sản phẩm
           <ArrowUpRightIcon className="button-icon" />
         </Link>
 
@@ -79,7 +79,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <Link className="button" href="/san-pham">
-            Gian hàng
+            Xem sản phẩm
             <ArrowUpRightIcon className="button-icon" />
           </Link>
         </nav>

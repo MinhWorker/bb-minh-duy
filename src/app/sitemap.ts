@@ -1,33 +1,19 @@
 import type { MetadataRoute } from "next";
-import {
-  listPublishedNews,
-  listPublishedProducts,
-  listPublishedRecipes,
-  listPublishedStories,
-} from "@/lib/cms/public-queries";
+import { getJournalHref } from "@/content/site";
+import { listVisibleJournalEntries, listVisibleProducts } from "@/lib/cms/site-content";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bonbonmd.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = ["", "/gioi-thieu", "/san-pham", "/goc-bon-bon", "/lien-he"];
-  let contentRoutes: MetadataRoute.Sitemap = [];
-
-  try {
-    const [products, recipes, stories, news] = await Promise.all([
-      listPublishedProducts(),
-      listPublishedRecipes(),
-      listPublishedStories(),
-      listPublishedNews(),
-    ]);
-    contentRoutes = [
-      ...products.map(({ slug }) => ({ url: `${baseUrl}/san-pham/${slug}`, changeFrequency: "weekly" as const, priority: 0.7 })),
-      ...recipes.map(({ slug }) => ({ url: `${baseUrl}/goc-bon-bon/cong-thuc/${slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
-      ...stories.map(({ slug }) => ({ url: `${baseUrl}/goc-bon-bon/cau-chuyen/${slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
-      ...news.map(({ slug }) => ({ url: `${baseUrl}/goc-bon-bon/tin-tuc/${slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
-    ];
-  } catch {
-    // Missing migrations or unavailable storage must not expose draft fallbacks.
-  }
+  const [products, journalEntries] = await Promise.all([
+    listVisibleProducts(),
+    listVisibleJournalEntries(),
+  ]);
+  const contentRoutes: MetadataRoute.Sitemap = [
+    ...products.map(({ slug }) => ({ url: `${baseUrl}/san-pham/${slug}`, changeFrequency: "weekly" as const, priority: 0.7 })),
+    ...journalEntries.map((entry) => ({ url: `${baseUrl}${getJournalHref(entry)}`, changeFrequency: "monthly" as const, priority: 0.6 })),
+  ];
 
   return [
     ...staticRoutes.map((path) => ({ url: `${baseUrl}${path}`, changeFrequency: "monthly" as const, priority: path === "" ? 1 : 0.8 })),

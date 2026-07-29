@@ -15,7 +15,7 @@ export default function ContactPage() {
     <>
       <PageHero
         title="Liên hệ HTX Minh Duy"
-        description="Trao đổi trực tiếp để biết tình trạng hàng, quy cách hiện tại hoặc thông tin hợp tác. Website không thu thập dữ liệu qua biểu mẫu."
+        description="Gọi điện hoặc nhắn Zalo để hỏi về sản phẩm đang có, cách đóng gói và cơ hội hợp tác cùng Minh Duy."
       />
       <section className="section contact-page">
         <div className="site-container contact-page-grid">
@@ -37,10 +37,10 @@ export default function ContactPage() {
             </a>
           </div>
           <div className="contact-address">
-            <p className="section-index">Đến HTX</p>
+            <p className="section-index">Ghé thăm Minh Duy</p>
             <h2>Hưng Mỹ, Cái Nước, Cà Mau</h2>
             <div className="address-row"><MapPin aria-hidden="true" /><p>{site.address}</p></div>
-            <div className="address-row"><Clock3 aria-hidden="true" /><p>Vui lòng liên hệ trước khi đến để HTX sắp xếp đón tiếp.</p></div>
+            <div className="address-row"><Clock3 aria-hidden="true" /><p>Vui lòng gọi trước để Minh Duy sắp xếp đón tiếp bạn chu đáo.</p></div>
             <a className="button button-outline" href={site.mapHref} target="_blank" rel="noreferrer">
               Mở Google Maps <ArrowUpRightIcon className="button-icon" />
             </a>
@@ -49,7 +49,7 @@ export default function ContactPage() {
       </section>
       <section className="contact-help">
         <div className="site-container contact-help-inner">
-          <p>Nếu bạn đang tìm một sản phẩm cụ thể, hãy xem danh mục trước khi liên hệ.</p>
+          <p>Bạn có thể xem danh mục sản phẩm trước, sau đó gọi hoặc nhắn Zalo để được tư vấn nhanh hơn.</p>
           <Link className="text-link" href="/san-pham">Xem sản phẩm <ArrowUpRightIcon /></Link>
         </div>
       </section>

@@ -22,7 +22,7 @@ export function SiteFooter() {
 
         <div className="footer-links">
           <p className="footer-label">Khám phá</p>
-          <Link href="/gioi-thieu">Giới thiệu & Chất lượng</Link>
+          <Link href="/gioi-thieu">Về Minh Duy</Link>
           <Link href="/san-pham">Sản phẩm</Link>
           <Link href="/goc-bon-bon">Góc Bồn Bồn</Link>
         </div>
@@ -36,13 +36,13 @@ export function SiteFooter() {
 
         <a className="footer-zalo" href={site.zaloHref} target="_blank" rel="noreferrer">
           <span>Nhắn Zalo cho Minh Duy</span>
-          <small>Tư vấn nhanh · thông tin đợt hàng</small>
+          <small>Tư vấn nhanh · sản phẩm đang có</small>
           <ArrowUpRightIcon />
         </a>
       </div>
       <div className="site-container footer-bottom">
         <p>© {new Date().getFullYear()} {site.name}.</p>
-        <p>Website giới thiệu thông tin HTX · Không thu thập dữ liệu qua biểu mẫu</p>
+        <p>Sản phẩm bồn bồn từ Hưng Mỹ, Cà Mau</p>
       </div>
     </footer>
   );
